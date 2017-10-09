@@ -6,7 +6,7 @@
 # Usage
 
 - Clone this repo wherever you like (e.g. `~/.dotfiles`)
-- Install [GNU stow][] (e.g. `brew install stow`) 
+- Install [GNU stow][] (e.g. `brew install stow`)
 - Run the `install.sh` script
 
 That'll set up a bunch of symlinks in your home directory (e.g.
