@@ -1,0 +1,55 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: M.Metz
+
+This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley.
+
+* Installing Emacs
+
+On macOS, I use [[http://brew.sh/][homebrew]] to install emacs.
+
+Check "brew info emacs" to see if install options are still valid.
+
+#+begin_src sh
+brew install emacs --build-from-source --with-cocoa --with-gnutls --with-imagemagick@6
+#+end_src
+
+- build-from-source to prevent dependency problem with jpeg library
+- cocoa to enable the emacs.app
+- gnutls to enable setting up secure communication
+- imagemagick to work with images
+
+I also create a symbolic link to emacs:
+
+#+begin_src sh
+ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
+#+end_src
+
+* Packages
+
+** Smex
+
+Smex adds history and suggestions to M-x
+
+#+begin_src emacs-lisp
+(use-package smex
+  :ensure t
+  :bind (("M-x"         . smex)
+         ("M-X"         . smex-major-mode-commands)
+         ("C-c C-c M-x" . execute-extended-command)))
+#+end_src
+
+Additional info:
+
+| Keybinding  | Description                                       |
+|-------------+---------------------------------------------------|
+| M-x         | Same as old M-x but with history & suggestions    |
+| M-X         | Only show commands relevant to current major mode |
+| C-c C-c M-x | Link to old M-x command                           |
+|-------------+---------------------------------------------------|
+| C-h w       | 'Where is' - shows kbd for selected command       |
+| C-h f       | Runs 'describe Function' on selected command      |
+| M-.         | Jumps to definition of selected command           |
+|-------------+---------------------------------------------------|
+
+** Next package
+

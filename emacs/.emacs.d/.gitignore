@@ -1,0 +1,4 @@
+# Ignore local (derived) emacs folders and files
+/config.el
+/elpa/
+/smex-items
