@@ -93,6 +93,17 @@ I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for som
 location on the terminal. In that case relative paths won't work)
 
 
+** Recent Files
+
+Build a list of recently used files, easily accessible via a keybinding.
+
+#+begin_src emacs-lisp
+(recentf-mode 1)
+(setq recentf-max-menu-items 32)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
+#+end_src
+
+
 * Packages
 
 ** Smex
