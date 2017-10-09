@@ -29,11 +29,20 @@ ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for
 some basic settings.
 
+load-file needs the complete path because emacs could be started from
+anywhere on the terminal.
+
 #+begin_src emacs-lisp
 (load-file "~/.emacs.d/sensible-defaults.el")
 (sensible-defaults/use-all-settings)
 (sensible-defaults/use-all-keybindings)
 (sensible-defaults/backup-to-temp-directory)
+#+end_src
+
+In addition, I like this as a default size for my app window:
+
+#+begin_src emacs-lisp
+(if (window-system) (set-frame-size (selected-frame) 112 64))
 #+end_src
 
 * Packages
@@ -89,4 +98,3 @@ Main Usage:
 |------------+----------------------------------|
 
 ** Next Package
-
