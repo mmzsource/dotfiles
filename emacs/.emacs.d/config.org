@@ -39,7 +39,19 @@ anywhere on the terminal.
 (sensible-defaults/backup-to-temp-directory)
 #+end_src
 
-In addition, I like this as a default size for my app window:
+* Disable annoying (visible) bells
+
+[[http://stackoverflow.com/questions/11679700/emacs-disable-beep-when-trying-to-move-beyond-the-end-of-the-document][Disable Annoying Alarms]]
+
+#+begin_src emacs-lisp
+(defun my-bell-function ())
+(setq ring-bell-function 'my-bell-function)
+(setq visible-bell nil)
+#+end_src
+
+* Sizes
+
+I like this as a default size for my emacs app window:
 
 #+begin_src emacs-lisp
 (if (window-system) (set-frame-size (selected-frame) 112 64))
