@@ -38,7 +38,7 @@ Smex adds history and suggestions to M-x
          ("C-c C-c M-x" . execute-extended-command)))
 #+end_src
 
-Additional info:
+Main Usage:
 
 | Keybinding  | Description                                       |
 |-------------+---------------------------------------------------|
@@ -51,5 +51,30 @@ Additional info:
 | M-.         | Jumps to definition of selected command           |
 |-------------+---------------------------------------------------|
 
-** Next package
+** Neotree
+
+Neotree shows your directories and files in a tree view.
+
+#+begin_src emacs-lisp
+(use-package neotree
+  :ensure t
+  :bind (("<f8>" . neotree-toggle)))
+#+end_src
+
+Main Usage:
+
+| Keybinding | Description                      |
+|------------+----------------------------------|
+| f8         | Toggle neotree                   |
+|------------+----------------------------------|
+| g          | Refresh neotree                  |
+| H          | Toggle display hidden files      |
+|------------+----------------------------------|
+| C-c C-n    | Create a new file or directory   |
+| C-c C-d    | Delete a file or directory       |
+| C-c C-r    | Rename a file or directory       |
+| C-c C-c    | Change root directory to display |
+|------------+----------------------------------|
+
+** Next Package
 
