@@ -24,14 +24,59 @@ Create a symbolic link to emacs from the application directory:
 ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 #+end_src
 
+
 * Override standard emacs behaviour
-** Sizes
+
+** UI
+
+Unfortunately, the order of the '(no) menu & (no) scroll bar' paragraph and the
+'window size' paragraph is important. If you change the order (window size
+first), the window size will be the standard emacs window size, not the
+specified size.
+
+*** (No) Menu & (no) scroll bar
+
+I have never felt the need to use the menu or the scroll bar in emacs.
+
+#+begin_src emacs-lisp
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(when window-system
+  (scroll-bar-mode -1))
+(setq scroll-conservatively 100)
+#+end_src
+
+The 'scroll-conservatively' makes sure emacs doesn't recenter the cursor after
+scrolling.
+
+*** Window Size
 
 I like this as a default size for my emacs app window:
 
 #+begin_src emacs-lisp
-(if (window-system) (set-frame-size (selected-frame) 112 64))
+(when window-system
+  (set-frame-size (selected-frame) 112 64))
 #+end_src
+
+*** Highlight current line
+
+Softly highlight the current line:
+
+#+begin_src emacs-lisp
+(when window-system
+  (global-hl-line-mode))
+#+end_src
+
+*** Disable annoying (visible) bells
+
+[[http://stackoverflow.com/questions/11679700/emacs-disable-beep-when-trying-to-move-beyond-the-end-of-the-document][Disable Annoying Alarms]]
+
+#+begin_src emacs-lisp
+(defun my-bell-function ())
+(setq ring-bell-function 'my-bell-function)
+(setq visible-bell nil)
+#+end_src
+
 
 ** Sensible defaults
 
@@ -47,15 +92,6 @@ I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for som
 (load-file needs the complete path because emacs can be started from any
 location on the terminal. In that case relative paths won't work)
 
-** Disable annoying (visible) bells
-
-[[http://stackoverflow.com/questions/11679700/emacs-disable-beep-when-trying-to-move-beyond-the-end-of-the-document][Disable Annoying Alarms]]
-
-#+begin_src emacs-lisp
-(defun my-bell-function ())
-(setq ring-bell-function 'my-bell-function)
-(setq visible-bell nil)
-#+end_src
 
 * Packages
 
