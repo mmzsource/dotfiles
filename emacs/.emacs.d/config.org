@@ -109,4 +109,82 @@ Main Usage:
 | C-c C-c    | Change root directory to display |
 |------------+----------------------------------|
 
+** Engine-Mode
+
+Engine-mode allows me to do internet searches on configured search engines.
+
+#+BEGIN_SRC emacs-lisp
+(use-package engine-mode
+  :ensure t)
+
+;; enable engine-mode globally
+(engine-mode t)
+
+(defengine amazon
+  "https://www.amazon.com/s/ref=nb_sb_noss?field-keywords=%s"
+  :keybinding "a")
+
+(defengine dictionary
+  "http://www.dictionary.com/browse/%s"
+  :keybinding "d")
+
+(defengine google
+  "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s"
+  :keybinding "g")
+
+(defengine github
+  "https://github.com/search?ref=simplesearch&q=%s"
+  :keybinding "h")
+
+(defengine google-images
+  "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s"
+  :keybinding "i")
+
+(defengine google-maps
+  "http://maps.google.com/maps?q=%s"
+  :keybinding "m")
+
+(defengine qwant
+  "https://www.qwant.com/?q=%s"
+  :keybinding "q")
+
+(defengine stack-overflow
+  "https://stackoverflow.com/search?q=%s"
+  :keybinding "s")
+
+(defengine google-translate
+  "https://translate.google.com/#auto/en/%s"
+  :keybinding "t")
+
+(defengine wikipedia
+  "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s"
+  :keybinding "w")
+
+(defengine youtube
+  "http://www.youtube.com/results?aq=f&oq=&search_query=%s"
+  :keybinding "y")
+#+END_SRC
+
+Main usage:
+
+C-x / <key for your engine here> for invoking engine-mode
+
+If your cursor is on a word when invoking engine-mode, that word will
+be the default search value unless you overwrite it by typing another
+search term.
+
+If you have selected a piece of text (C-SPC ...) and invoke
+engine-mode, that piece of text will be your search string.
+
+So for instance I want to search for "emil ernebro" on youtube:
+
+- C-x / y
+- type "emil ernebro"
+- engine-mode will open youtube and search for emil ernebro
+
+Other way to search for "emil ernebro", this time on google-images:
+
+- Select "emil ernebro" in the current textbuffer
+- C-x / i
+
 ** Next Package
