@@ -5,12 +5,12 @@ computers.
 
 # Usage
 
-Clone this repo wherever you like (I use `~/.dotfiles`), install [GNU
-`stow`][], and run the `install.sh` script. That'll set up a bunch of
-symlinks in your home directory, e.g., `~/.bashrc` →
-`~/.dotfiles/bash/.bashrc`.
+- Clone this repo wherever you like (I use `~/.dotfiles`)
+- Install [GNU stow][] (I use `brew install stow`) 
+- Run the `install.sh` script. 
 
-[GNU `stow`]: https://www.gnu.org/software/stow/
+That'll set up a bunch of symlinks in your home directory, e.g.,
+`.stowtest` -> `.dotfiles/stowtest/.stowtest`
 
 It won't overwrite existing files, so move those out of the way
 first.
@@ -19,8 +19,9 @@ first.
 
 Mostly inspired by / copied from [hrs/dotfiles][].
 
-[hrs/dotfiles]: https://github.com/hrs/dotfiles
-
 # Licence
 
 Use everything in this repo however you want it at your own risk.
+
+[GNU stow]: https://www.gnu.org/software/stow/
+[hrs/dotfiles]: https://github.com/hrs/dotfiles
