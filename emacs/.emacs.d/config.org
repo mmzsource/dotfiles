@@ -18,19 +18,24 @@ brew install emacs --build-from-source --with-cocoa --with-gnutls --with-imagema
 - gnutls to enable setting up secure communication
 - imagemagick to work with images
 
-I also create a symbolic link to emacs:
+Create a symbolic link to emacs from the application directory:
 
 #+begin_src sh
 ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 #+end_src
 
-* Sensible defaults
+* Override standard emacs behaviour
+** Sizes
 
-I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for
-some basic settings.
+I like this as a default size for my emacs app window:
 
-load-file needs the complete path because emacs could be started from
-anywhere on the terminal.
+#+begin_src emacs-lisp
+(if (window-system) (set-frame-size (selected-frame) 112 64))
+#+end_src
+
+** Sensible defaults
+
+I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for some basic settings.
 
 #+begin_src emacs-lisp
 (load-file "~/.emacs.d/sensible-defaults.el")
@@ -39,7 +44,10 @@ anywhere on the terminal.
 (sensible-defaults/backup-to-temp-directory)
 #+end_src
 
-* Disable annoying (visible) bells
+(load-file needs the complete path because emacs can be started from any
+location on the terminal. In that case relative paths won't work)
+
+** Disable annoying (visible) bells
 
 [[http://stackoverflow.com/questions/11679700/emacs-disable-beep-when-trying-to-move-beyond-the-end-of-the-document][Disable Annoying Alarms]]
 
@@ -47,14 +55,6 @@ anywhere on the terminal.
 (defun my-bell-function ())
 (setq ring-bell-function 'my-bell-function)
 (setq visible-bell nil)
-#+end_src
-
-* Sizes
-
-I like this as a default size for my emacs app window:
-
-#+begin_src emacs-lisp
-(if (window-system) (set-frame-size (selected-frame) 112 64))
 #+end_src
 
 * Packages
