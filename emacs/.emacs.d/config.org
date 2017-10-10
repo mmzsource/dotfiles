@@ -1,7 +1,6 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: M.Metz
 
-This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley.
 The emacs-lisp code in this file will run when emacs starts. A great use case for [[https://en.wikipedia.org/wiki/Literate_programming]['literate programming']] imho.
 
 * Installing Emacs
@@ -106,6 +105,8 @@ Build a list of recently used files, easily accessible via a keybinding.
 
 
 * Packages
+
+This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley.
 
 ** Smex
 
