@@ -95,7 +95,7 @@ location on the terminal. In that case relative paths won't work)
 
 ** Recent Files
 
-Build a list of recently used files, easily accessible via a keybinding.
+Build a list of recently used files, easily accessible via the "C-x C-r" keybinding.
 
 #+begin_src emacs-lisp
 (recentf-mode 1)
