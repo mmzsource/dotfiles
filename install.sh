@@ -1,4 +1,5 @@
 #!/bin/bash
 
-stow stowtest
 stow emacs
+stow git
+stow stowtest

@@ -1,0 +1,27 @@
+[alias]
+  aa = add --all
+  amend = commit --amend
+  cm = commit -m
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  mylog = log --pretty=format:'%h   %<(20)%aN   %ai   %s'
+  rollback = checkout --
+  s = status
+  ss = status -sb
+[branch]
+  autosetuprebase = always
+[commit]
+  template = ~/.gitmessage
+[core]
+  excludesfile = /Users/mmz/.gitignore
+  autocrlf = input
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+[push]
+  default = simple
+[user]
+  name = MMz
+  email = 
