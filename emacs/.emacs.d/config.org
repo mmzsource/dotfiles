@@ -269,6 +269,7 @@ Main Usage:
 
 ** Next Package
 
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
@@ -277,7 +278,7 @@ several things:
 - Try starting emacs from the terminal with ~emacs --debug-init~
 - Set ~use-package-verbose~ to ~t~ . Errors occuring while initializing or
   configuring a package will not stop emacs from loading. With this setting the
-  errors will be reported to a special /*Warnings/* popup buffer so you can debug
+  errors will be reported to a special ~*Warnings*~ popup buffer so you can debug
   the package loading.
 - Try ~package-refresh-contents~ or check if the troublesome package is in
   ~package-list-packages~
