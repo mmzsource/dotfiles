@@ -29,11 +29,6 @@ ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 
 ** UI
 
-Unfortunately, the order of the '(no) menu & (no) scroll bar' paragraph and the
-'window size' paragraph is important. If you change the order (window size
-first), the window size will be the standard emacs window size, not the
-specified size.
-
 *** (No) Menu & (no) scroll bar
 
 I have never felt the need to use the menu or the scroll bar in emacs.
@@ -57,6 +52,11 @@ I like this as a default size for my emacs app window:
 (when window-system
   (set-frame-size (selected-frame) 112 64))
 #+end_src
+
+Unfortunately, the order of the '(no) menu & (no) scroll bar' paragraph and the
+'window size' paragraph is important. If you change the order (window size
+first), the window size will be the standard emacs window size, not the
+specified size.
 
 *** Highlight current line
 
@@ -236,4 +236,48 @@ Other way to search for "emil ernebro", this time on google-images:
 - Select "emil ernebro" in the current textbuffer
 - C-x / i
 
+** Magit
+
+Magit is a brilliant interface to git. It provides several 'popups' (like
+commit, push, log, diff) which guide you through the (git) options.
+
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :bind (("C-c g" . magit-status)))
+#+end_src
+
+Main Usage:
+
+| Keybinding | Description                         |
+|------------+-------------------------------------|
+| C-c g      | (ma)git status                      |
+|------------+-------------------------------------|
+| h          | list all popups + commands          |
+| g          | Refresh                             |
+| n          | Next section                        |
+| p          | Previous section                    |
+| TAB        | expand or collapse section at point |
+|------------+-------------------------------------|
+| s          | stage                               |
+| u          | unstage                             |
+| c          | commit popup                        |
+| C-c C-c    | really commit                       |
+| P          | push popup                          |
+| u          | push to upstream                    |
+|------------+-------------------------------------|
+
 ** Next Package
+
+* Debugging
+
+Sometimes adding a package doesn't work as expected. In those cases you can try
+several things:
+
+- Try starting emacs from the terminal with ~emacs --debug-init~
+- Set ~use-package-verbose~ to ~t~ . Errors occuring while initializing or
+  configuring a package will not stop emacs from loading. With this setting the
+  errors will be reported to a special /*Warnings/* popup buffer so you can debug
+  the package loading.
+- Try ~package-refresh-contents~ or check if the troublesome package is in
+  ~package-list-packages~
