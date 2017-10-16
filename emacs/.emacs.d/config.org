@@ -267,7 +267,27 @@ Main Usage:
 | u          | push to upstream                    |
 |------------+-------------------------------------|
 
-** Next Package
+** RestClient
+
+I'm using Restclient to test REST calls from text files.
+Additional info on [[https://github.com/pashky/restclient.el][github]] (including examples)
+
+#+begin_src emacs-lisp
+(use-package restclient
+  :ensure t)
+#+end_src
+
+Main Usage:
+
+| Keybinding | Description                                      |
+|------------+--------------------------------------------------|
+| C-c C-c    | runs query under cursor, switch to result window |
+| C-c C-v    | runs query under cursor, stays in current window |
+| C-c C-p    | jump to previous query                           |
+| C-c C-n    | jump to next query                               |
+| C-c C-.    | mark the query under the cursor                  |
+| C-c C-u    | copy query under the cursor as curl cmd          |
+|------------+--------------------------------------------------|
 
 
 * Debugging
