@@ -13,10 +13,10 @@ Check "brew info emacs" to see if install options are still valid.
 brew install emacs --build-from-source --with-cocoa --with-gnutls --with-imagemagick@6
 #+end_src
 
-- build-from-source to prevent dependency problem with jpeg library
-- cocoa to enable the emacs.app
-- gnutls to enable setting up secure communication
-- imagemagick to work with images
+- ~--build-from-source~ to prevent dependency problem with jpeg library
+- ~-with-cocoa~ to enable the emacs.app
+- ~--with-gnutls~ to enable setting up secure communication
+- ~--with-imagemagick@6~ to work with images
 
 Create a symbolic link to emacs from the application directory:
 
