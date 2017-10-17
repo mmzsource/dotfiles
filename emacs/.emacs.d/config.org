@@ -87,6 +87,22 @@ Softly highlight the current line:
 (setq visible-bell nil)
 #+end_src
 
+*** Wrap paragraphs automatically
+
+AutoFillMode automatically wraps paragraphs. If you prefer to do it manually
+disable this code and hit =M-q= with the cursor in the paragraph you want to
+wrap.
+
+Toggles wrapping with =C-c q=
+
+#+begin_src emacs-lisp
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'gfm-mode-hook 'turn-on-auto-fill)
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+(global-set-key (kbd "C-c q") 'auto-fill-mode)
+#+end_src
+
 
 ** Sensible defaults
 
