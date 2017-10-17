@@ -299,6 +299,21 @@ Main Usage:
 | C-c C-u    | copy query under the cursor as curl cmd          |
 |------------+--------------------------------------------------|
 
+** Markdown
+
+Use markdown mode, also for my foldingtext files
+
+#+begin_src emacs-lisp
+(use-package markdown-mode
+  :ensure   t
+  :commands (markdown-mode gfm-mode)
+  :mode     (("README\\.md\\'" . gfm-mode)
+             ("\\.md\\'"       . markdown-mode)
+             ("\\.markdown\\'" . markdown-mode)
+             ("\\.ft\\'"       . markdown-mode))
+  :init     (setq markdown-command "multimarkdown"))
+#+end_src
+
 
 * Debugging
 
