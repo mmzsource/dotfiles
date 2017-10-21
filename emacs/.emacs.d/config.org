@@ -65,6 +65,60 @@ Unfortunately, the order of the '(no) menu & (no) scroll bar' paragraph and the
 first), the window size will be the standard emacs window size, not the
 specified size.
 
+*** Font Size and Resizing
+
+Resize text in every buffer and also in modeline. Also increases app window.
+Default zoom bindings still work (=C-x C-+= etc.)
+
+#+BEGIN_SRC emacs-lisp
+(setq mmz/default-font "Menlo")
+(setq mmz/default-font-size 14)
+(setq mmz/current-font-size mmz/default-font-size)
+
+(setq mmz/font-change-increment 1.1)
+
+(defun mmz/font-code ()
+  "Return a string representing the current font (like \"Menlo-14\")."
+  (concat mmz/default-font "-" (number-to-string mmz/current-font-size)))
+
+(defun mmz/set-font-size ()
+  "Set the font to `mmz/default-font' at `mmz/current-font-size'.
+   Set that for the current frame, and also make it the default for
+   other, future frames."
+  (let ((font-code (mmz/font-code)))
+    (add-to-list 'default-frame-alist (cons 'font font-code))
+    (set-frame-font font-code)))
+
+(defun mmz/reset-font-size ()
+  "Change font size back to `mmz/default-font-size'."
+  (interactive)
+  (setq mmz/current-font-size mmz/default-font-size)
+  (mmz/set-font-size))
+
+(defun mmz/increase-font-size ()
+  "Increase current font size by a factor of `mmz/font-change-increment'."
+  (interactive)
+  (setq mmz/current-font-size
+        (ceiling (* mmz/current-font-size mmz/font-change-increment)))
+  (mmz/set-font-size))
+
+(defun mmz/decrease-font-size ()
+  "Decrease current font size by a factor of `mmz/font-change-increment', down to a minimum size of 1."
+  (interactive)
+  (setq mmz/current-font-size
+        (max 1
+             (floor (/ mmz/current-font-size mmz/font-change-increment))))
+  (mmz/set-font-size))
+
+(define-key global-map (kbd "C-)") 'mmz/reset-font-size)
+(define-key global-map (kbd "C-+") 'mmz/increase-font-size)
+(define-key global-map (kbd "C-=") 'mmz/increase-font-size)
+(define-key global-map (kbd "C-_") 'mmz/decrease-font-size)
+(define-key global-map (kbd "C--") 'mmz/decrease-font-size)
+
+(mmz/reset-font-size)
+#+END_SRC
+
 *** Highlight current line
 
 Softly highlight the current line:
@@ -100,12 +154,20 @@ Toggles wrapping with =C-c q=
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 #+end_src
 
-*** Solarized theme
+*** Themes
 
 The [[https://github.com/bbatsov/solarized-emacs/][bbatsov solarized theme]] is quite easy on the eyes. However, I also really
 like the default emacs theme. Therefore, I only load this when needed / wanted
 with =M-x load-theme= (If I want solarized-dark as default, I'll have to add
 =(load-theme 'solarized-dark t)= to this config)
+
+Since I'm saving my desktop when closing emacs, an applied theme will also be
+loaded when restarting emacs. To be able to 'reload' the default theme, I've
+started =emacs --no-desktop=, started the theme editor with =M-x
+customize-create-theme= and saved that theme as 'default'.
+
+So after applying another team, I can now always return to my default theme by
+=M-x load-theme default=.
 
 #+begin_src emacs-lisp
 (use-package solarized-theme
@@ -116,19 +178,106 @@ with =M-x load-theme= (If I want solarized-dark as default, I'll have to add
   :ensure t)
 #+end_src
 
+*** Fancy Lambda's
+
+Eye candy:
+
+#+BEGIN_SRC emacs-lisp
+(global-prettify-symbols-mode t)
+#+END_SRC
+
 ** Sensible defaults
 
-I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for some basic settings.
+I use most of [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for basic settings, but I decided to inline
+it into this file, to reduce the *magic*.
 
-#+begin_src emacs-lisp
-(load-file "~/.emacs.d/sensible-defaults.el")
-(sensible-defaults/use-all-settings)
-(sensible-defaults/use-all-keybindings)
-(sensible-defaults/backup-to-temp-directory)
-#+end_src
+#+BEGIN_SRC emacs-lisp
 
-(load-file needs the complete path because emacs can be started from any
-location on the terminal. In that case relative paths won't work)
+;; When opening a file start at home directory
+(setq default-directory "~/")
+
+;; Allow 20MB of memory before calling GC
+(setq gc-cons-threshold 20000000)
+
+;; Call delete-trailing-whitespace every time a buffer is saved
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Treat camel-case as separate words
+(add-hook 'prog-mode-hook 'subword-mode)
+
+;; When opening a file, always follow symlinks
+(setq vc-follow-symlinks t)
+
+;; When saving a file that starts with '#!', make it executable
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; Single space after periods
+(setq sentence-end-double-space nil)
+
+;; Offer to create directories on save
+(add-hook 'before-save-hook
+  (lambda ()
+    (when buffer-file-name
+      (let ((dir (file-name-directory buffer-file-name)))
+        (when (and (not (file-exists-p dir))
+                        (y-or-n-p (format "Directory %s does not exist. Create it?" dir)))
+          (make-directory dir t))))))
+
+;; Apply changes to highlighted region
+(transient-mark-mode t)
+
+;; Delete selected text when I start typing
+(delete-selection-mode t)
+
+;; Ensure that files end with newline
+(setq require-final-newline t)
+
+;; Don't present the usual startup message and clear the scratch buffer
+(setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
+
+;; Make dired file sizes human readable
+(setq-default dired-listing-switches "-alh")
+
+;; "y/n" instead of "yes/no"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Enable syntax highlighting whenever possible
+(global-font-lock-mode t)
+
+;; Refresh buffers when files change
+(global-auto-revert-mode t)
+
+;; Show matching parens
+(show-paren-mode t)
+(setq show-paren-delay 0.0)
+
+;; Set default linelength
+(setq-default fill-column 80)
+
+;; When double clicking on a file in finder open it as a buffer in the
+;; existing emacs frame, rather than creating a new frame just for that file
+(setq ns-pop-up-frames nil)
+
+;; Yank text where point is, not where mouse cursor is
+(setq mouse-yank-at-point t)
+
+
+(defun backup-to-temp-directory ()
+  "Store backups and auto-saved files in
+  TEMPORARY-FILE-DIRECTORY (which defaults to /tmp on Unix),
+  instead of in the same directory as the file. This means we're
+  still making backups, but not where they'll get in the way.
+  WARNING: on most Unix-like systems /tmp is volatile, in-memory
+  storage, so your backups won't survive if your computer crashes!
+  If you're not willing to take this risk, you shouldn't enable
+  this setting."
+  (setq backup-directory-alist
+    `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+    `((".*" ,temporary-file-directory t))))
+#+END_SRC
 
 ** Recent Files
 
@@ -140,7 +289,7 @@ Build a list of recently used files, easily accessible via the "C-x C-r" keybind
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+end_src
 
-Most of the times it's also convenient if emacs opens previously opened files
+Most of the times it's also convenient that emacs opens previously opened files
 when starting up (unless specified files are given as startup arguments).
 =desktop-save-mode= does the trick.
 
@@ -433,8 +582,8 @@ several things:
 * Ideas
 
 ** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states. [[http://doc.norang.ca/org-mode.html][Example]]
-** TODO Maybe inline sensible defaults; reduce the magic, make things explicit when possible
-** TODO Not so sure about the 'Are you sure' question when closing emacs
+** DONE Maybe inline sensible defaults; reduce the magic, make things explicit when possible
+** DONE Not so sure about the 'Are you sure' question when closing emacs
 ** TODO Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
 ** DONE Open last opened file after startup
 ** TODO Don't ask confirmation when I kill a buffer
