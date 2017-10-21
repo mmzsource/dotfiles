@@ -103,6 +103,21 @@ Toggles wrapping with =C-c q=
 (global-set-key (kbd "C-c q") 'auto-fill-mode)
 #+end_src
 
+*** Solarized theme
+
+The [[https://github.com/bbatsov/solarized-emacs/][bbatsov solarized theme]] is quite easy on the eyes. However, I also really
+like the default emacs theme. Therefore, I only load this when needed / wanted
+with =M-x load-theme=
+
+#+begin_src emacs-lisp
+(use-package solarized-theme
+  :defer 10
+  :init
+  (setq solarized-use-variable-pitch  nil)
+  (setq solarized-scale-org-headlines nil)
+  :ensure t)
+#+end_src
+
 
 ** Sensible defaults
 
@@ -117,7 +132,6 @@ I use [[https://github.com/hrs/sensible-defaults.el][sensible defaults]] for som
 
 (load-file needs the complete path because emacs can be started from any
 location on the terminal. In that case relative paths won't work)
-
 
 ** Recent Files
 
@@ -343,3 +357,4 @@ several things:
   the package loading.
 - Try ~package-refresh-contents~ or check if the troublesome package is in
   ~package-list-packages~
+y
