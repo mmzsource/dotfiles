@@ -5,7 +5,7 @@ The emacs-lisp code in this file will run when emacs starts. A great use case
 for [[https://en.wikipedia.org/wiki/Literate_programming]['literate programming']] imho.
 
 Again (as already stated in the README.md) mostly inspired by / copied from
-[hrs/dotfiles][https://github.com/hrs/dotfiles].
+[[https://github.com/hrs/dotfiles][hrs/dotfiles]].
 
 * Installing Emacs
 
