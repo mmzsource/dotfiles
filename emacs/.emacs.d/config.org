@@ -104,7 +104,8 @@ Toggles wrapping with =C-c q=
 
 The [[https://github.com/bbatsov/solarized-emacs/][bbatsov solarized theme]] is quite easy on the eyes. However, I also really
 like the default emacs theme. Therefore, I only load this when needed / wanted
-with =M-x load-theme=
+with =M-x load-theme= (If I want solarized-dark as default, I'll have to add
+=(load-theme 'solarized-dark t)= to this config)
 
 #+begin_src emacs-lisp
 (use-package solarized-theme
@@ -419,3 +420,20 @@ several things:
   the package loading.
 - Try ~package-refresh-contents~ or check if the troublesome package is in
   ~package-list-packages~
+* Ideas
+
+** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states
+** TODO Maybe inline sensible defaults; reduce the magic, make things explicit when possible
+** TODO Not so sure about the 'Are you sure' question when closing emacs
+** TODO Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
+** TODO Open last opened file after startup
+** TODO Add and configure company
+** TODO Add and configure paredit
+** TODO Add and configure paredit-everywhere
+** TODO Add and configure highlight-parentheses
+** TODO Add and configure rainbow-delimiters
+** TODO Add and configure cider
+** TODO Add and configure clojure snippets
+** TODO Add and configure ya-snippets?
+** TODO Add and configure flycheck / proselint
+** TODO Work with ssh
