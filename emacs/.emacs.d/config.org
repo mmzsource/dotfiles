@@ -4,6 +4,9 @@
 The emacs-lisp code in this file will run when emacs starts. A great use case
 for [[https://en.wikipedia.org/wiki/Literate_programming]['literate programming']] imho.
 
+Again (as already stated in the README.md) mostly inspired by / copied from
+[hrs/dotfiles][https://github.com/hrs/dotfiles].
+
 * Installing Emacs
 
 On macOS, I use [[http://brew.sh/][homebrew]] to install emacs.
@@ -160,8 +163,8 @@ Toggles wrapping with =C-c q=
 
 *** Themes
 
-The [[https://github.com/bbatsov/solarized-emacs/][bbatsov solarized theme]] is quite easy on the eyes. However, I also really
-like the default emacs theme. Therefore, I only load this when needed / wanted
+The [[https://github.com/bbatsov/solarized-emacs/][bbatsov solarized theme]] is quite easy on the eyes. However, I like the
+default emacs theme. Therefore, I only load solarized when needed / wanted
 with =M-x load-theme= (If I want solarized-dark as default, I'll have to add
 =(load-theme 'solarized-dark t)= to this config)
 
@@ -170,7 +173,7 @@ loaded when restarting emacs. To be able to 'reload' the default theme, I've
 started =emacs --no-desktop=, started the theme editor with =M-x
 customize-create-theme= and saved that theme as 'default'.
 
-So after applying another team, I can now always return to my default theme by
+So after applying another theme, I can now always return to my default theme by
 =M-x load-theme default=.
 
 #+begin_src emacs-lisp
@@ -247,7 +250,7 @@ it into this file, to reduce the *magic*.
 ;; "y/n" instead of "yes/no"
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Don't ask me which buffer to kill, just kill
+;; Don't ask me which buffer to kill, just kill 'this' buffer
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; Enable syntax highlighting whenever possible
@@ -296,7 +299,9 @@ Build a list of recently used files, easily accessible via the "C-x C-r" keybind
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+end_src
 
-Most of the times it's also convenient that emacs opens previously opened files
+** Desktop Save Mode
+
+Most of the times it's convenient that emacs opens previously opened files
 when starting up (unless specified files are given as startup arguments).
 =desktop-save-mode= does the trick.
 
