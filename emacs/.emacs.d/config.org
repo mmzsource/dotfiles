@@ -48,7 +48,7 @@ I like this as a default size for my emacs app window:
 
 #+begin_src emacs-lisp
 (when window-system
-  (set-frame-size (selected-frame) 112 64))
+  (set-frame-size (selected-frame) 112 56))
 #+end_src
 
 Keybindings to resize windows within emacs app window:
@@ -64,6 +64,10 @@ Unfortunately, the order of the '(no) menu & (no) scroll bar' paragraph and the
 'window size' paragraph is important. If you change the order (window size
 first), the window size will be the standard emacs window size, not the
 specified size.
+
+In addition, since I've activated 'save-desktop', emacs will remember the
+settings of my last session. Therefore, this windowsize will only be used when
+starting emacs from the terminal with the =--no-desktop= switch.
 
 *** Font Size and Resizing
 
@@ -242,6 +246,9 @@ it into this file, to reduce the *magic*.
 
 ;; "y/n" instead of "yes/no"
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; Don't ask me which buffer to kill, just kill
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;; Enable syntax highlighting whenever possible
 (global-font-lock-mode t)
@@ -582,11 +589,12 @@ several things:
 * Ideas
 
 ** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states. [[http://doc.norang.ca/org-mode.html][Example]]
+** TODO Define org folder (for summarizing todo's in org-mode)
 ** DONE Maybe inline sensible defaults; reduce the magic, make things explicit when possible
 ** DONE Not so sure about the 'Are you sure' question when closing emacs
-** TODO Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
+** DONE Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
 ** DONE Open last opened file after startup
-** TODO Don't ask confirmation when I kill a buffer
+** DONE Don't ask confirmation when I kill a buffer
 ** TODO Add and configure company
 ** TODO Add and configure paredit
 ** TODO Add and configure paredit-everywhere
