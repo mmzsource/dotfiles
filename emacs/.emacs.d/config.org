@@ -140,6 +140,16 @@ Build a list of recently used files, easily accessible via the "C-x C-r" keybind
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 #+end_src
 
+Most of the times it's also convenient if emacs opens previously opened files
+when starting up (unless specified files are given as startup arguments).
+=desktop-save-mode= does the trick.
+
+#+BEGIN_SRC emacs-lisp
+(desktop-save-mode 1)
+#+END_SRC
+
+To start emacs without opening last session's files, start it by =emacs --no-desktop=
+
 ** Org-mode
 *** Display preferences
 
@@ -422,11 +432,12 @@ several things:
   ~package-list-packages~
 * Ideas
 
-** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states
+** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states. [[http://doc.norang.ca/org-mode.html][Example]]
 ** TODO Maybe inline sensible defaults; reduce the magic, make things explicit when possible
 ** TODO Not so sure about the 'Are you sure' question when closing emacs
 ** TODO Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
-** TODO Open last opened file after startup
+** DONE Open last opened file after startup
+** TODO Don't ask confirmation when I kill a buffer
 ** TODO Add and configure company
 ** TODO Add and configure paredit
 ** TODO Add and configure paredit-everywhere
@@ -434,6 +445,6 @@ several things:
 ** TODO Add and configure rainbow-delimiters
 ** TODO Add and configure cider
 ** TODO Add and configure clojure snippets
-** TODO Add and configure ya-snippets?
+** TODO Add and configure ya-snippets? Or [[http://doc.norang.ca/org-mode.html#Yasnippets][abbrev-mode and skeletons?]]
 ** TODO Add and configure flycheck / proselint
 ** TODO Work with ssh
