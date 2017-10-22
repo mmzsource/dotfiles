@@ -772,6 +772,36 @@ Main Usage:
 
 Additional information on [[https://joaotavora.github.io/yasnippet/snippet-development.html][writing snippets]].
 
+** Cider
+
+CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
+*R*ocks!
+
+#+BEGIN_SRC emacs-lisp
+(use-package cider
+  :ensure t
+  :pin melpa-stable
+  :config
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook      #'company-mode)
+    (add-hook 'clojure-mode-hook    #'paredit-mode)
+    (setq cider-repl-use-pretty-printing t))
+#+END_SRC
+
+Main usage:
+
+Open a file belonging to your =lein= or =boot= project (like =core.clj=) and
+call the =cider-jack-in= function (=M-x cider-jack-in RET=). This will start an
+nREPL server with all the project dependencies loaded in and CIDER will
+automatically connect to it.
+
+Alternatively you can use =C-u M-x cider-jack-in RET= to specify the name of a
+lein or boot project, without having to visit any file in it. This option is
+also useful if your project contains both project.clj and build.boot and you
+want to launch a repl for one or the other.
+
+In Clojure(Script) buffers the command cider-jack-in is bound to =C-c M-j=.
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
