@@ -640,6 +640,46 @@ you’re done, press =C-c <left>=. [[https://www.youtube.com/watch?v%3DT_voB16Qx
   :config (winner-mode 1))
 #+END_SRC
 
+** Undo-tree
+
+People often struggle with the Emacs undo model, where there’s really no concept
+of “redo” - you simply undo the undo. This lets you use C-x u
+(undo-tree-visualize) to visually walk through the changes you’ve made, undo
+back to a certain point (or redo), and go down different branches.
+
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :ensure t
+  :config
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t))
+#+END_SRC
+
+** Company
+
+Company is a text completion framework for Emacs. The name stands for "complete
+anything". It uses pluggable back-ends and front-ends to retrieve and display
+completion candidates.
+
+Main usage:
+
+| keybinding | description                                   |
+|------------+-----------------------------------------------|
+| <f1>       | Display documentation for selected completion |
+| C-w        | Where is? - See source of selected completion |
+|------------+-----------------------------------------------|
+
+In addition:
+
+To see a list of enabled backends: =M-x customize-variable RET company-backends=
+
+#+BEGIN_SRC emacs-lisp
+(use-package company
+  :ensure t
+  :config (global-company-mode))
+#+END_SRC
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
@@ -666,9 +706,18 @@ several things:
 ** DONE Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
 ** DONE Open last opened file after startup
 ** DONE Don't ask confirmation when I kill a buffer
-** TODO Add and configure winner mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#winner-mode---undo-and-redo-window-configuration][winner mode in sacha's config]]
-** TODO Add and configure undo tree mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#undo-tree-mode---visualize-your-undos-and-branches][undo tree mode in sacha's config]]
-** TODO Add and configure company
+** DONE Add and configure winner mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#winner-mode---undo-and-redo-window-configuration][winner mode in sacha's config]]
+   - State "DONE"       from "WAIT"       [2017-10-22 Sun 11:55]
+   - State "WAIT"       from "BUSY"       [2017-10-22 Sun 11:55]
+   - State "BUSY"       from "TODO"       [2017-10-22 Sun 11:55]
+** DONE Add and configure undo tree mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#undo-tree-mode---visualize-your-undos-and-branches][undo tree mode in sacha's config]]
+   - State "DONE"       from "WAIT"       [2017-10-22 Sun 12:27]
+   - State "WAIT"       from "BUSY"       [2017-10-22 Sun 12:27]
+   - State "BUSY"       from "TODO"       [2017-10-22 Sun 12:21]
+** DONE Add and configure company
+   - State "DONE"       from "WAIT"       [2017-10-22 Sun 12:53]
+   - State "WAIT"       from "BUSY"       [2017-10-22 Sun 12:53]
+   - State "BUSY"       from "TODO"       [2017-10-22 Sun 12:31]
 ** TODO Add and configure paredit
 ** TODO Add and configure paredit-everywhere
 ** TODO Add and configure highlight-parentheses
