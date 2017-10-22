@@ -311,8 +311,8 @@ when starting up (unless specified files are given as startup arguments).
 
 To start emacs without opening last session's files, start it by =emacs --no-desktop=
 
-** Org-mode
-*** Display preferences
+* Org-mode
+** Display preferences
 
 Pretty bullets instead of asterisks.
 
@@ -328,7 +328,7 @@ Nice arrow instead of the usual ellipsis (=...=) when stuff is folded.
 (setq org-ellipsis "⤵")
 #+END_SRC
 
-*** Global key bindings
+** Keybindings
 
 #+begin_src emacs-lisp
 (global-set-key "\C-cl" 'org-store-link)
@@ -337,7 +337,16 @@ Nice arrow instead of the usual ellipsis (=...=) when stuff is folded.
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
 
-*** Code blocks
+** Agenda files
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-files
+  '("~/Dropbox/org/pathis.org"
+    "~/Dropbox/org/department.org"
+    "~/Dropbox/org/leisure.org"))
+#+END_SRC
+
+** Code blocks
 
 Syntax highlighting in source blocks while editing.
 
@@ -378,6 +387,40 @@ Don't ask before evaluating code blocks.
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
+
+** Keywords
+
+My todo workflow:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-todo-keywords
+;;'((sequence "TODO(t)" "BUSY(b!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")))
+  '((sequence "TODO(t)" "BUSY(b!)" "WAIT(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
+
+#+END_SRC
+
+The items before the pipe ="|"= need action while the items behind it need no
+further action. The special characters are:
+
+- =<char>= for fast access key definition (prompted for after =C-c C-t=)
+- =!= for adding a timestamp
+- =@= for prompting for a note
+
+=-edit-=
+
+I found out that I want to be able to cycle quickly through my items
+=(S-<arrow>)= and only add notes when needed. Therefore, I commented my earlier
+todo-keyword definition, but leave it here in case I want to activate them
+again.
+
+Checkboxes are not included in the global TODO list and can be used to split a
+todo item into a number of simpler tasks:
+
+- [X] plan workflow
+- [-] implement workflow
+  - [X] add workflow
+  - [X] explain workflow
+  - [ ] test workflow
 
 * Packages
 
@@ -593,13 +636,20 @@ several things:
   ~package-list-packages~
 * Ideas
 
-** TODO Make TODO, BUSY, WAITING, DONE the default org-mode todo-states. [[http://doc.norang.ca/org-mode.html][Example]]
-** TODO Define org folder (for summarizing todo's in org-mode)
+** DONE Make TODO, BUSY, WAITING, DONE the default org-mode todo-states. [[http://doc.norang.ca/org-mode.html][Example]]
+   - State "DONE"       from "WAIT"       [2017-10-22 Sun 09:57]
+   - State "BUSY"       from "TODO"       [2017-10-22 Sun 08:40]
+** DONE Define org folder (for summarizing todo's in org-mode)
+   - State "DONE"       from "WAIT"       [2017-10-22 Sun 10:51]
+   - State "WAIT"       from "BUSY"       [2017-10-22 Sun 10:51]
+   - State "BUSY"       from "TODO"       [2017-10-22 Sun 10:40]
 ** DONE Maybe inline sensible defaults; reduce the magic, make things explicit when possible
 ** DONE Not so sure about the 'Are you sure' question when closing emacs
 ** DONE Default size of font when starting emacs is 1 zoomfactor too small imho. Change default.
 ** DONE Open last opened file after startup
 ** DONE Don't ask confirmation when I kill a buffer
+** TODO Add and configure winner mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#winner-mode---undo-and-redo-window-configuration][winner mode in sacha's config]]
+** TODO Add and configure undo tree mode [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a6595450fcd0e787c/Sacha.org#undo-tree-mode---visualize-your-undos-and-branches][undo tree mode in sacha's config]]
 ** TODO Add and configure company
 ** TODO Add and configure paredit
 ** TODO Add and configure paredit-everywhere
