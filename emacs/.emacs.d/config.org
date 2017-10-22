@@ -273,6 +273,9 @@ it into this file, to reduce the *magic*.
 ;; Set default linelength
 (setq-default fill-column 80)
 
+;; Show column number
+(column-number-mode 1)
+
 ;; When double clicking on a file in finder open it as a buffer in the
 ;; existing emacs frame, rather than creating a new frame just for that file
 (setq ns-pop-up-frames nil)
@@ -431,7 +434,8 @@ todo item into a number of simpler tasks:
 
 * Packages
 
-This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley.
+This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley. [[https://www.lunaryorn.com/posts/my-emacs-configuration-with-use-package.html][This blog]]
+nicely explains some of the features.
 
 ** Smex
 
@@ -748,6 +752,7 @@ of the arrow.
 
 Additionally, I had to change the keybindings of my magnet app because they made
 heavy use of =C-M= combinations and clashed with the paredit bindings.
+
 
 * Debugging
 
