@@ -680,6 +680,74 @@ To see a list of enabled backends: =M-x customize-variable RET company-backends=
   :config (global-company-mode))
 #+END_SRC
 
+** Parenthesis!
+
+If parenthesis are used, enable paredit, and highlight and color the
+parenthesis.
+
+#+BEGIN_SRC emacs-lisp
+;; Paredit
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook                  #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook                        #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook                        #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook            #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook                      #'enable-paredit-mode)
+  (add-hook 'clojure-mode-hook                     #'enable-paredit-mode))
+
+
+;; Ensure paredit is used EVERYWHERE!
+(use-package paredit-everywhere
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'paredit-everywhere-mode))
+
+(use-package highlight-parentheses
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda()
+              (highlight-parentheses-mode))))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'lisp-mode-hook
+            (lambda()
+              (rainbow-delimiters-mode))))
+
+(global-highlight-parentheses-mode)
+#+END_SRC
+
+Main usage:
+
+| Keybinding | Description          | Example                |
+|------------+----------------------+------------------------|
+| C-M-f      | Move cursor forward  |                        |
+| C-M-b      | Move cursor backward |                        |
+|------------+----------------------+------------------------|
+| C-right    | Forward  slurp       | (1 2) 3 -> (1 2 3)     |
+| C-left     | Forward  barf        | (1 2 3) -> (1 2) 3     |
+| C-M-right  | Backward barf        | (1 2 3) -> 1 (2 3)     |
+| C-M-left   | Backward slurp       | 1 (2 3) -> (1 2 3)     |
+|------------+----------------------+------------------------|
+| C-k        | Kill until next )    | (1 (_2) 3) -> (1 () 3) |
+|------------+----------------------+------------------------|
+| M-(        | Wrap around          | (1 2 3) -> (1 (2) 3)   |
+| M-s        | Splice               | (1 (2) 3) -> (1 2 3)   |
+| M-S        | Split                | (1 2) -> (1) (2)       |
+| M-J        | Join                 | (1) (2) -> (1 2)       |
+|------------+----------------------+------------------------|
+
+Conceptually, when barfing and slurping, you're moving the =)= in the direction
+of the arrow.
+
+Additionally, I had to change the keybindings of my magnet app because they made
+heavy use of =C-M= combinations and clashed with the paredit bindings.
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
