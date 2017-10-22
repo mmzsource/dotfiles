@@ -24,35 +24,10 @@
 
 (package-initialize)
 
-
-;; evaluate package list and install missing packages
-(defun packages-install (&rest packages)
-  (message "running packages-install")
-  (mapc (lambda (package)
-          (let ((name (car package))
-                (repo (cdr package)))
-            (when (not (package-installed-p name))
-              (let ((package-archives (list repo)))
-                (package-initialize)
-                (package-install name)))))
-        packages)
-  (package-initialize)
-  (delete-other-windows))
-
-
-;; Install extensions if they're missing
-(defun init--install-packages ()
-  (message "Lets install some packages")
-  (packages-install
-   ;; Since use-package this is the only entry here
-   ;; ALWAYS try to use use-package!
-   (cons 'use-package melpa)))
-
-(condition-case nil
-    (init--install-packages)
-  (error
-   (package-refresh-contents)
-   (init--install-packages)))
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 ;;; Load the config to configure the rest of the packages
 (org-babel-load-file (concat user-emacs-directory "config.org"))
