@@ -1,6 +1,8 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: M.Metz
 
+* Introduction
+
 The emacs-lisp code in this file will run when emacs starts. A great use case
 for [[https://en.wikipedia.org/wiki/Literate_programming]['literate programming']] imho.
 
@@ -33,7 +35,7 @@ Create a symbolic link to emacs from the application directory:
 ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 #+end_src
 
-* Override standard emacs behaviour
+* Override Defaults
 ** UI
 *** (No) Menu & (no) scroll bar
 
@@ -627,7 +629,7 @@ Use markdown mode, also for my foldingtext files
   :init     (setq markdown-command "multimarkdown"))
 #+end_src
 
-** Winner mode: - undo and redo window configuration
+** Winner mode
 
 winner-mode lets you use =C-c <left>= and =C-c <right>= to switch between window
 configurations. This is handy when something has popped up a buffer that you
