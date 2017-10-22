@@ -377,13 +377,6 @@ new one (which shows the same information).
 (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-Quickly insert a block of elisp by typing =<el= and hitting =<TAB>=:
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'org-structure-template-alist
-  '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
-#+END_SRC
-
 Allow =babel= to evaluate Emacs lisp:
 
 #+BEGIN_SRC emacs-lisp
@@ -753,6 +746,31 @@ of the arrow.
 Additionally, I had to change the keybindings of my magnet app because they made
 heavy use of =C-M= combinations and clashed with the paredit bindings.
 
+** Yasnippet
+
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :config
+    (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+    (yas-global-mode 1))
+#+END_SRC
+
+I didn't download any preconfigured snippets and decided to create them
+manually when needed. Snippet inspiration can be found [[https://github.com/AndreaCrotti/yasnippet-snippets/tree/master/snippets][here]].
+
+Main Usage:
+
+| Function               | Additional info                             |
+|------------------------+---------------------------------------------|
+| yas-new-snippet        | C-c C-c to save                             |
+| yas-visit-snippet-file | opens snippets definition file              |
+|------------------------+---------------------------------------------|
+| snippet-mode           | to edit snippets (with syntax highlighting) |
+| yas-tryout-snippet     | (in snippet-mode)                           |
+|------------------------+---------------------------------------------|
+
+Additional information on [[https://joaotavora.github.io/yasnippet/snippet-development.html][writing snippets]].
 
 * Debugging
 
