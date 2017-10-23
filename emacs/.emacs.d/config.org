@@ -326,6 +326,14 @@ when starting up (unless specified files are given as startup arguments).
 
 To start emacs without opening last session's files, start it by =emacs --no-desktop=
 
+** Buffers
+
+Give me some help when switching buffers with =C-x b=:
+
+#+BEGIN_SRC emacs-lisp
+(ido-mode 1)
+#+END_SRC
+
 * Org-mode
 ** Display preferences
 
@@ -780,7 +788,7 @@ Additional information on [[https://joaotavora.github.io/yasnippet/snippet-devel
 ** Cider
 
 CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
-*R*ocks!
+*R*ocks! [[http://cider.readthedocs.io/en/latest/running_tests/][Read The Docs.]]
 
 #+BEGIN_SRC emacs-lisp
 (use-package cider
@@ -798,7 +806,8 @@ CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
     (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
     (add-hook 'cider-mode-hook      #'rainbow-delimiters-mode)
     (setq cider-repl-use-pretty-printing t)
-    (setq nrepl-log-messages t))
+;;  (setq nrepl-log-messages t) ;; for debugging / inspecting cider
+    (setq cider-test-show-report-on-success t))
 #+END_SRC
 
 The config basically configures:
@@ -851,7 +860,9 @@ Cider Source Buffer:
 | C-c M-t n              | Toggle ns tracing         |                                           |
 | C-u C-M-x              | Debug top-level form      |                                           |
 | M-x cider-inspect-expr | inspect given expression  |                                           |
-|                        |                           |                                           |
+|------------------------+---------------------------+-------------------------------------------|
+| C-c C-t n              | Run tests in ns           |                                           |
+| C-c C-t p              | Run tests in project      |                                           |
 
 Cider-doc:
 
@@ -871,8 +882,6 @@ Flows:
 
 Also supercool: =cider-enlighten= to show all intermediate values of a called
 function in the source buffer.
-
-
 
 ** Which-Key
 
