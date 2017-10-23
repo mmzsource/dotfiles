@@ -260,6 +260,11 @@ it into this file, to reduce the *magic*.
 ;; Don't ask me which buffer to kill, just kill 'this' buffer
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
+;; Switch to other window with C-o instead of C-x o
+;; I find the old C-o keybinding (delete blank line) confusing and normally
+;; delete a line with C-a C-k or C-S-backspace
+(global-set-key (kbd "C-o") 'other-window)
+
 ;; Enable syntax highlighting whenever possible
 (global-font-lock-mode t)
 
@@ -784,9 +789,27 @@ CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
   :config
     (add-hook 'cider-repl-mode-hook #'company-mode)
     (add-hook 'cider-mode-hook      #'company-mode)
-    (add-hook 'clojure-mode-hook    #'paredit-mode)
-    (setq cider-repl-use-pretty-printing t))
+    (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+    (add-hook 'cider-mode-hook      #'cider-company-enable-fuzzy-completion)
+    (add-hook 'cider-repl-mode-hook #'eldoc-mode)
+    (add-hook 'cider-mode-hook      #'eldoc-mode)
+    (add-hook 'cider-repl-mode-hook #'paredit-mode)
+    (add-hook 'cider-mode-hook      #'paredit-mode)
+    (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+    (add-hook 'cider-mode-hook      #'rainbow-delimiters-mode)
+    (setq cider-repl-use-pretty-printing t)
+    (setq nrepl-log-messages t))
 #+END_SRC
+
+The config basically configures:
+
+- use (fuzzy) completion in cider modes (also repl)
+- use paredit while in clojure mode
+- use eldoc in repl mode (displays function signatures in the minibuffer while
+  typing)
+- Pretty Print when possible
+- Log communication with the nREPL server (will create buffers like
+  =*nrepl-messages conn-name*=) ->
 
 Main usage:
 
@@ -801,6 +824,55 @@ also useful if your project contains both project.clj and build.boot and you
 want to launch a repl for one or the other.
 
 In Clojure(Script) buffers the command cider-jack-in is bound to =C-c M-j=.
+
+Cider Repl & Source Buffer:
+
+| keybinding  | description                                                       |
+|-------------+-------------------------------------------------------------------|
+| C-c C-d C-a | Apropos- Search (loaded) functions                                |
+| C-c C-d C-d | With cursor on function, show documentation.                      |
+| C-c C-d C-r | With cursor on function, show grimoire docs (including examples!) |
+| M-.         | View source, (M-, to go back again)                               |
+| C-c C-z     | Switch to source buffer                                           |
+| C-u C-c C-z | Switch to repl and sync namespace with source buffer              |
+|             |                                                                   |
+|-------------+-------------------------------------------------------------------|
+
+Cider Source Buffer:
+
+| keybinding             | description               | example                                   |
+|------------------------+---------------------------+-------------------------------------------|
+| C-c C-k                | Load this buffer          |                                           |
+| C-c C-e                | Evaluate last sexpression | (inc (+ 2 3)_) -> 5 ; (inc (+ 2 3))_ -> 6 |
+| C-c C-c                | Evaluate top level form   | (inc (+ 2 _ 3)) -> 6                      |
+|------------------------+---------------------------+-------------------------------------------|
+| C-c M-i                | Inspect a value           |                                           |
+| C-c M-t v              | Toggle var tracing        |                                           |
+| C-c M-t n              | Toggle ns tracing         |                                           |
+| C-u C-M-x              | Debug top-level form      |                                           |
+| M-x cider-inspect-expr | inspect given expression  |                                           |
+|                        |                           |                                           |
+
+Cider-doc:
+
+| keybinding | description      |
+|------------+------------------|
+| s          | show source code |
+|------------+------------------|
+
+
+Flows:
+
+- Working in cider repl, cursor on function -> =C-c C-d d= to show documentation
+  of function -> =s= to view source -> =M-,= to return to doc view
+- Working in cider repl, cursor on function -> =M-.= to show source -> =M-,= to
+  go back to repl again.
+- Switching between repl and source buffer: =C-c C-z=
+
+Also supercool: =cider-enlighten= to show all intermediate values of a called
+function in the source buffer.
+
+
 
 ** Which-Key
 
