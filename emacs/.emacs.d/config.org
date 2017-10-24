@@ -902,13 +902,20 @@ screen, but will switch to the bottom if there's not enough space on the right.
 
 ** Avy
 
-Avy helps jumping through visible text. Type =C-; <a-char>= and all =<a-char>'s=
-will highlight with a key bound to them.
+Avy helps jumping through visible text.
 
 #+BEGIN_SRC emacs-lisp
+(define-prefix-command 'f9-map)
+
 (use-package avy
   :ensure t
-  :bind   ("C-;" . avy-goto-char)
+  :bind   (("<f9>"   . f9-map)
+           ("<f9> c" . avy-goto-char)
+           ("<f9> 2" . avy-goto-char-2)
+           ("<f9> t" . avy-goto-char-timer)
+           ("<f9> l" . avy-goto-line)
+           ("<f9> w" . avy-goto-word-1)
+           ("<f9> o" . avy-org-goto-heading-timer))
   :config (setq avy-background t))
 #+END_SRC
 
