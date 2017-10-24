@@ -900,6 +900,18 @@ prefix) in a popup.
 screen, but will switch to the bottom if there's not enough space on the right.
 =which-key-mode= enables the which-key minor mode.
 
+** Avy
+
+Avy helps jumping through visible text. Type =C-; <a-char>= and all =<a-char>'s=
+will highlight with a key bound to them.
+
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :bind   ("C-;" . avy-goto-char)
+  :config (setq avy-background t))
+#+END_SRC
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
