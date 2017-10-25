@@ -655,7 +655,7 @@ you’re done, press =C-c <left>=. [[https://www.youtube.com/watch?v%3DT_voB16Qx
 ** Undo-tree
 
 People often struggle with the Emacs undo model, where there’s really no concept
-of “redo” - you simply undo the undo. This lets you use =C-x u=
+of “redo” - you simply undo the undo. This package lets you use =C-x u=
 (undo-tree-visualize) to visually walk through the changes you’ve made, undo
 back to a certain point (or redo), and go down different branches.
 
@@ -796,14 +796,14 @@ CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
   :pin melpa-stable
   :config
     (add-hook 'cider-repl-mode-hook #'company-mode)
-    (add-hook 'cider-mode-hook      #'company-mode)
     (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-    (add-hook 'cider-mode-hook      #'cider-company-enable-fuzzy-completion)
     (add-hook 'cider-repl-mode-hook #'eldoc-mode)
-    (add-hook 'cider-mode-hook      #'eldoc-mode)
     (add-hook 'cider-repl-mode-hook #'paredit-mode)
-    (add-hook 'cider-mode-hook      #'paredit-mode)
     (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
+    (add-hook 'cider-mode-hook      #'company-mode)
+    (add-hook 'cider-mode-hook      #'cider-company-enable-fuzzy-completion)
+    (add-hook 'cider-mode-hook      #'eldoc-mode)
+    (add-hook 'cider-mode-hook      #'paredit-mode)
     (add-hook 'cider-mode-hook      #'rainbow-delimiters-mode)
     (setq cider-repl-use-pretty-printing t)
 ;;  (setq nrepl-log-messages t) ;; for debugging / inspecting cider
@@ -902,7 +902,7 @@ screen, but will switch to the bottom if there's not enough space on the right.
 
 ** Avy
 
-Avy helps jumping through visible text.
+Avy helps jumping through *visible* text.
 
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'f9-map)
