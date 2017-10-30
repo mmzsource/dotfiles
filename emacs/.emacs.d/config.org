@@ -508,6 +508,10 @@ Engine-mode allows me to do internet searches on configured search engines.
   "https://www.amazon.com/s/ref=nb_sb_noss?field-keywords=%s"
   :keybinding "a")
 
+(defengine clojure-docs
+  "https://clojuredocs.org/search?q=%s"
+  :keybinding "c")
+
 (defengine dictionary
   "http://www.dictionary.com/browse/%s"
   :keybinding "d")
