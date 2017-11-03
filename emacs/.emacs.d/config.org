@@ -334,6 +334,25 @@ Give me some help when switching buffers with =C-x b=:
 (ido-mode 1)
 #+END_SRC
 
+** Folding
+
+I found a couple of nice things when searching for code folding opportunities:
+outline-mode, hide-show, folding-mode and M-x occur among others. But what seems
+to work easiest and most robust for me is 'set-selective-display'. This is a
+standard function that accepts an optional numerical argument. With the argument
+you tell it to 'fold' lines with indent >= argument. I decided to bind it to a
+key and toggle between indent 1 and indent 0 which seems to fit 99% of my use
+cases:
+
+#+BEGIN_SRC emacs-lisp
+(defun mmz/toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display
+   (if selective-display nil (or column 1))))
+
+(global-set-key (kbd "<f12>") 'mmz/toggle-selective-display)
+#+END_SRC
+
 * Org-mode
 ** Display preferences
 
