@@ -487,6 +487,10 @@ Main Usage:
 | M-.         | Jumps to definition of selected command           |
 |-------------+---------------------------------------------------|
 
+Links:
+
+- [[https://github.com/nonsequitur/smex][Smex on github (nonsequitur)]]
+
 ** Neotree
 
 Neotree shows your directories and files in a tree view.
@@ -511,6 +515,11 @@ Main Usage:
 | C-c C-r    | Rename a file or directory       |
 | C-c C-c    | Change root directory to display |
 |------------+----------------------------------|
+
+Links:
+
+- [[https://github.com/jaypei/emacs-neotree][Neotree on Github (jaypei)]]
+- [[https://www.emacswiki.org/emacs/NeoTree][Neotree on emacswiki]]
 
 ** Engine-Mode
 
@@ -593,6 +602,11 @@ Other way to search for "emil ernebro", this time on google-images:
 
 - Select "emil ernebro" in the current textbuffer
 - =C-x / i=
+
+Links:
+
+- [[https://github.com/hrs/engine-mode][engine-mode on github (hrs)]]
+- [[https://www.youtube.com/watch?v%3DMBhJBMYfWUo][hrs on youtube with short video on engine-mode]]
 
 ** Magit
 
