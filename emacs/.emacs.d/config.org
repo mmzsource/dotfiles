@@ -574,7 +574,7 @@ Engine-mode allows me to do internet searches on configured search engines.
 
 Main usage:
 
-C-x / <key for your engine here> for invoking engine-mode
+=C-x / <key for your engine here>= for invoking engine-mode
 
 If your cursor is on a word when invoking engine-mode, that word will
 be the default search value unless you overwrite it by typing another
@@ -585,14 +585,14 @@ engine-mode, that piece of text will be your search string.
 
 So for instance I want to search for "emil ernebro" on youtube:
 
-- C-x / y
+- =C-x / y=
 - type "emil ernebro"
 - engine-mode will open youtube and search for emil ernebro
 
 Other way to search for "emil ernebro", this time on google-images:
 
 - Select "emil ernebro" in the current textbuffer
-- C-x / i
+- =C-x / i=
 
 ** Magit
 
