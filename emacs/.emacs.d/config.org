@@ -956,6 +956,18 @@ Avy helps jumping through *visible* text.
   :config (setq avy-background t))
 #+END_SRC
 
+** Fireplace
+
+MUST HAVE emacs functionality:
+
+#+BEGIN_SRC emacs-lisp
+(use-package fireplace
+  :ensure t)
+#+END_SRC
+
+- =M-x fireplace= to engage in deep thinking
+- =M-x fireplace-off= or =q= to put the fire out
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
