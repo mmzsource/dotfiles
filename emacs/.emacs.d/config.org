@@ -990,6 +990,18 @@ MUST HAVE emacs functionality:
 - =M-x fireplace= to engage in deep thinking
 - =M-x fireplace-off= or =q= to put the fire out
 
+** Expand Region
+
+Expands regions in a =dwim= way.
+
+#+BEGIN_SRC emacs-lisp
+(use-package expand-region
+  :ensure t
+  :bind ("C-@" . er/expand-region))
+#+END_SRC
+
+Github repo can be found [[https://github.com/magnars/expand-region.el][here]].
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
