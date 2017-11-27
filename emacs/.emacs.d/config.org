@@ -353,6 +353,28 @@ cases:
 (global-set-key (kbd "<f12>") 'mmz/toggle-selective-display)
 #+END_SRC
 
+** SQL-mode
+
+When using =M-x sql-postgres= , ask for user, password, server, database and
+port. Use these defaults:
+
+#+BEGIN_SRC emacs-lisp
+(setq sql-postgres-login-params
+      '((user     :default "lms-client")
+         password
+        (database :default "lms")
+        (server   :default "localhost")
+        (port     :default 5432)))
+#+END_SRC
+
+Furthermore, truncate long lines (needed when rows have lots of data in them).
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
+#+END_SRC
+
 * Org-mode
 ** Display preferences
 
