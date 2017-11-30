@@ -334,6 +334,16 @@ Give me some help when switching buffers with =C-x b=:
 (ido-mode 1)
 #+END_SRC
 
+Also activate window switching with =S-<left>=, =S-<right>=, =S-<up>= and
+=S-<down>= :
+
+#+BEGIN_SRC emacs-lisp
+(windmove-default-keybindings)
+#+END_SRC
+
+Unfortunately this doesn't work nicely with .org files. Therefore, in the org
+config, I'm replacing disputed keys.
+
 ** Folding
 
 I found a couple of nice things when searching for code folding opportunities:
@@ -400,6 +410,15 @@ Nice arrow instead of the usual ellipsis (=...=) when stuff is folded.
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
+
+Don't override the windmove keybindings (=S-<left> <right> <up> & <down>).
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC
 
 ** Agenda files
 
