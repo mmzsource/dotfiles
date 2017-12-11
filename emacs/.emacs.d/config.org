@@ -35,6 +35,15 @@ Create a symbolic link to emacs from the application directory:
 ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
 #+end_src
 
+Other option:
+
+1. $ open /usr/local/Cellar/emacs/[version]/
+2. Right-click Emacs.app and choose Make Alias.
+3. Drag or move or copy the alias to Applications.
+4. Rename the alias in your Applications folder to your desired name
+
+Now emacs will also be found by spotlight.
+
 * Override Defaults
 ** UI
 *** (No) Menu & (no) scroll bar
