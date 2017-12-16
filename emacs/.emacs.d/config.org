@@ -340,6 +340,8 @@ To start emacs without opening last session's files, start it by =emacs --no-des
 Give me some help when switching buffers with =C-x b=:
 
 #+BEGIN_SRC emacs-lisp
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
 (ido-mode 1)
 #+END_SRC
 
@@ -392,6 +394,12 @@ Furthermore, truncate long lines (needed when rows have lots of data in them).
 (add-hook 'sql-interactive-mode-hook
           (lambda ()
             (toggle-truncate-lines t)))
+#+END_SRC
+
+** Imenu: jump to definitions
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-i") 'imenu)
 #+END_SRC
 
 * Org-mode
