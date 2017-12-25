@@ -515,6 +515,20 @@ todo item into a number of simpler tasks:
   - [X] explain workflow
   - [ ] test workflow
 
+** Newlines allowed inside marked up expression
+
+Default, =org-mode= only allows markup to span a single newline. I often feel
+the need to span a whole paragraph, so I'm increasing this var here to what I
+think will be pretty much the max number of consecutive lines I ever want to
+mark up.
+
+#+BEGIN_SRC emacs-lisp
+(setcar (nthcdr 4 org-emphasis-regexp-components) 128)
+(org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+#+END_SRC
+
+More info [[https://emacs.stackexchange.com/questions/13820/inline-verbatim-and-code-with-quotes-in-org-mode][in this stackoverflow answer]] .
+
 * Packages
 
 This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley. [[https://www.lunaryorn.com/posts/my-emacs-configuration-with-use-package.html][This blog]]
