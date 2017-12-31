@@ -409,6 +409,15 @@ Furthermore, truncate long lines (needed when rows have lots of data in them).
 (global-set-key (kbd "M-i") 'imenu)
 #+END_SRC
 
+** Enable / Disable flyspell mode
+
+#+BEGIN_SRC emacs-lisp
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+#+END_SRC
+
 * Org-mode
 ** Display preferences
 
@@ -435,7 +444,7 @@ Nice arrow instead of the usual ellipsis (=...=) when stuff is folded.
 (global-set-key "\C-cb" 'org-iswitchb)
 #+end_src
 
-Don't override the windmove keybindings (=S-<left> <right> <up> & <down>).
+Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-shiftup-final-hook 'windmove-up)
