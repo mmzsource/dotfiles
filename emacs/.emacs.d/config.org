@@ -44,6 +44,13 @@ Other option:
 
 Now emacs will also be found by spotlight.
 
+#+BEGIN_SRC sh
+brew install aspell --with-lang-nl
+#+END_SRC
+
+- aspell is needed for spell checking
+- english language is installed by default (no need to specify)
+
 * Override Defaults
 ** UI
 *** (No) Menu & (no) scroll bar
