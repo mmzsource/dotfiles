@@ -1069,6 +1069,36 @@ Expands regions in a =dwim= way.
 
 Github repo can be found [[https://github.com/magnars/expand-region.el][here]].
 
+** Web mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package web-mode
+  :ensure t
+  :mode "\\.html?\\'"
+  :config
+  (progn
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-code-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-enable-current-element-highlight t)
+    (setq web-mode-enable-css-colorization t)
+    (setq web-mode-enable-auto-pairing t)))
+#+END_SRC
+
+** Emmet mode
+
+#+BEGIN_SRC emacs-lisp
+(use-package emmet-mode
+  :ensure t
+  :commands emmet-mode
+  :config
+  (add-hook 'web-mode-hook  'emmet-mode)
+  (add-hook 'html-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode))
+#+END_SRC
+
+- =C-j= is the important keybinding here
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
