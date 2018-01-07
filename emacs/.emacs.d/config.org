@@ -1071,6 +1071,9 @@ Github repo can be found [[https://github.com/magnars/expand-region.el][here]].
 
 ** Web mode
 
+Web mode makes sure you can work with HTML, JavaScript and CSS in one and the
+same HTML file.
+
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
   :ensure t
@@ -1098,6 +1101,16 @@ Github repo can be found [[https://github.com/magnars/expand-region.el][here]].
 #+END_SRC
 
 - =C-j= is the important keybinding here
+- See [[https://emmet.io/][emmet site]] for more info
+
+Small example: in emmet mode, typing =.item{$}*3= and then expanding it with
+=C-j= will lead to this block of html:
+
+#+BEGIN_SRC html
+<div class="item">1</div>
+<div class="item">2</div>
+<div class="item">3</div>
+#+END_SRC
 
 * Debugging
 
