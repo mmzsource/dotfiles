@@ -1129,6 +1129,22 @@ Some examples:
 <div class="item">3</div>
 #+END_SRC
 
+- =.container>p*3>lorem5= expands to:
+
+#+BEGIN_SRC html
+<div class="container">
+  <p>
+    Ante metus, dictum at tempor?
+  </p>
+  <p>
+    Feugiat in ante metus, dictum.
+  </p>
+  <p>
+    Semper auctor neque, vitae tempus!
+  </p>
+</div>
+#+END_SRC
+
 More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
 
 * Debugging
