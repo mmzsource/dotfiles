@@ -1103,14 +1103,33 @@ same HTML file.
 - =C-j= is the important keybinding here
 - See [[https://emmet.io/][emmet site]] for more info
 
-Small example: in emmet mode, typing =.item{$}*3= and then expanding it with
-=C-j= will lead to this block of html:
+Some examples:
+
+- =a:link= =C-j= expands to:
+
+#+BEGIN_SRC html
+<a href="http://"></a>
+#+END_SRC
+
+- =nav>ul>li= =C-j= expands to:
+
+#+BEGIN_SRC html
+<nav>
+  <ul>
+    <li></li>
+  </ul>
+</nav>
+#+END_SRC
+
+-  =.item{$}*3= =C-j= expands to:
 
 #+BEGIN_SRC html
 <div class="item">1</div>
 <div class="item">2</div>
 <div class="item">3</div>
 #+END_SRC
+
+More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
 
 * Debugging
 
