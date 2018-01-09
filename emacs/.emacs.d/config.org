@@ -531,6 +531,24 @@ todo item into a number of simpler tasks:
   - [X] explain workflow
   - [ ] test workflow
 
+** Tags
+
+Tags workflow:
+
+- Add header to the top of a file containing tags and optionally shortcuts:
+
+#+TAGS: IMPORTANT(i) URGENT(u) PENDING(p)
+
+- =C-c C-c= to evaluate a newly created tagline
+- =C-c C-q= to add a tag to an org-mode header item. Here you can use the
+  defined shortcuts. You can add multiple tags on a header item. Nested items
+  will inherit the tags added to its parent.
+- =C-c / m= for finding matching tags (=C-c a m when you're in an agenda file).
+  You can combine tag searches, so for instance search for: IMPORTANT, URGENT,
+  IMPORTANT|URGENT or IMPORTANT&URGENT . Results will be highlighted in your
+  buffer.
+- Edit text or =C-c C-c= to remove highlights.
+
 ** Newlines allowed inside marked up expression
 
 Default, =org-mode= only allows markup to span a single newline. I often feel
