@@ -497,15 +497,15 @@ Don't ask before evaluating code blocks.
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
-** Keywords
+** To-do items
 
 My todo workflow:
 
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
 ;;'((sequence "TODO(t)" "BUSY(b!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")))
-  '((sequence "TODO(t)" "BUSY(b!)" "WAIT(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
-
+;;'((sequence "TODO(t)" "BUSY(b!)" "WAIT(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
+  '((sequence "TODO(t)" "BUSY(b)" "PENDING(p)" "|" "DONE(d)" "CANCELLED(c)")))
 #+END_SRC
 
 The items before the pipe ="|"= need action while the items behind it need no
@@ -537,7 +537,7 @@ Tags workflow:
 
 - Add header to the top of a file containing tags and optionally shortcuts:
 
-#+TAGS: IMPORTANT(i) URGENT(u) PENDING(p)
+#+TAGS: IMPORTANT(i) URGENT(u)
 
 - =C-c C-c= to evaluate a newly created tagline
 - =C-c C-q= to add a tag to an org-mode header item. Here you can use the
