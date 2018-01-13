@@ -409,7 +409,7 @@ Furthermore, truncate long lines (needed when rows have lots of data in them).
 (global-set-key (kbd "M-i") 'imenu)
 #+END_SRC
 
-** Enable / Disable flyspell mode
+** Spelling - Enable / Disable flyspell mode
 
 #+BEGIN_SRC emacs-lisp
 (dolist (hook '(text-mode-hook))
@@ -745,7 +745,7 @@ Main Usage:
 | u          | push to upstream                    |
 |------------+-------------------------------------|
 
-** RestClient
+** Rest-Client
 
 I'm using Restclient to test REST calls from text files.
 Additional info on [[https://github.com/pashky/restclient.el][github]] (including examples)
@@ -1108,6 +1108,8 @@ same HTML file.
 
 ** Emmet mode
 
+Powerful way of creating HTML & CSS snippets.
+
 #+BEGIN_SRC emacs-lisp
 (use-package emmet-mode
   :ensure t
@@ -1177,3 +1179,20 @@ several things:
   the package loading.
 - Try ~package-refresh-contents~ or check if the troublesome package is in
   ~package-list-packages~
+* Try?
+
+- [[https://github.com/zenozeng/yafolding.el][yafolding]]? ... Problem with current indent based folding is that it doesn't
+  fold comments (see folding header). So new solution should fix that.
+
+* Cleanup?
+
+- Avy; I don't use it that often. For the visible area it might be just as easy
+  to =C-9 C-n= or =C-9 C-p= repeatedly and =C-arrow= to the word you're moving
+  to. Or when you're already on the correct line, =C-a= to move to the begin,
+  =C-e= to move to the end and =C-44 C-f= to move approximately halfway if
+  you're on the beginning of the line. Other option is to simply =C-s= or =C-r=;
+  The way it works seems to break my flow; first =<f12> t= then some typing and
+  then selecting a character randomly assigned by avy... Somehow that requires
+  too much conscious effort. The only reason I'm not deleting it immediately is
+  that I want to give it a real chance because when it works, it works like
+  magic.
