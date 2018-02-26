@@ -470,30 +470,40 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
 
 #+BEGIN_SRC emacs-lisp
 (setq org-capture-templates
-  '(("b" "Blog idea"
+  '(("e" "Explore"
      entry
-     (file+headline "~/Dropbox/org/capture.org" "Blog")
+     (file+headline org-default-notes-file "Explore")
      "* %?\n")
 
-    ("e" "Essay idea"
-    entry
-    (file+headline "~/Dropbox/org/capture.org" "Essay")
-    "* %?\n")
-
     ("i" "Idea"
-    entry
-    (file+headline "~/Dropbox/org/capture.org" "Idea")
-    "* %?\n")
+     entry
+     (file+headline org-default-notes-file "Ideas")
+     "* %?\n")
+
+    ("l" "Listen"
+     entry
+     (file+headline org-default-notes-file "Listen")
+     "* %?\n")
+
+    ("q" "Quote"
+     entry
+     (file+headline org-default-notes-file "Quotes")
+     "* %^{Quote} - %^{Author} (source: %^{Source})")
 
     ("r" "Read"
-    entry
-    (file+headline "~/Dropbox/org/capture.org" "Read")
-    "* %?\n")
+     entry
+     (file+headline org-default-notes-file "Read")
+     "* %?\n")
 
     ("t" "Todo"
-    entry
-    (file+headline "~/Dropbox/org/capture.org" "TODO")
-    "* TODO %?\n")))
+     entry
+     (file+headline org-default-notes-file "Tasks")
+     "* TODO %?\n")
+
+    ("w" "Watch"
+     entry
+     (file+headline org-default-notes-file "Watch")
+     "* %?\n")))
 #+END_SRC
 
 Use ido for completion
