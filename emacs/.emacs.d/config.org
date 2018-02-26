@@ -462,6 +462,47 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
     "~/Dropbox/org/leisure.org"))
 #+END_SRC
 
+** Capture
+
+#+BEGIN_SRC emacs-lisp
+(setq org-default-notes-file "~/Dropbox/org/capture.org")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+  '(("b" "Blog idea"
+     entry
+     (file+headline "~/Dropbox/org/capture.org" "Blog")
+     "* %?\n")
+
+    ("e" "Essay idea"
+    entry
+    (file+headline "~/Dropbox/org/capture.org" "Essay")
+    "* %?\n")
+
+    ("i" "Idea"
+    entry
+    (file+headline "~/Dropbox/org/capture.org" "Idea")
+    "* %?\n")
+
+    ("r" "Read"
+    entry
+    (file+headline "~/Dropbox/org/capture.org" "Read")
+    "* %?\n")
+
+    ("t" "Todo"
+    entry
+    (file+headline "~/Dropbox/org/capture.org" "TODO")
+    "* TODO %?\n")))
+#+END_SRC
+
+Use ido for completion
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-use-outline-path t)
+(setq org-outline-path-complete-in-steps nil)
+#+END_SRC
+
 ** Code blocks
 
 Syntax highlighting in source blocks while editing.
