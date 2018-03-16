@@ -462,6 +462,15 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
     "~/Dropbox/org/leisure.org"))
 #+END_SRC
 
+** Drawers
+
+Let's not clutter up our tasks:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-log-into-drawer "LOGBOOK")
+(setq org-clock-into-drawer 1)
+#+END_SRC
+
 ** Capture
 
 #+BEGIN_SRC emacs-lisp
