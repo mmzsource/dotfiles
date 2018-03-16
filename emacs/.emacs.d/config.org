@@ -468,8 +468,29 @@ Let's not clutter up our tasks:
 
 #+BEGIN_SRC emacs-lisp
 (setq org-log-into-drawer "LOGBOOK")
-(setq org-clock-into-drawer 1)
+(setq org-clock-into-drawer "CLOCK")
 #+END_SRC
+
+Logbook logging:
+
+| Keybinding | Description       |
+|------------+-------------------|
+| C-c C-z    | Take a Quick note |
+| C-c C-c    | Store note        |
+|------------+-------------------|
+
+Clocking (time tracking):
+
+| Keybinding      | Description           |
+|-----------------+-----------------------|
+| C-c C-x C-i     | clock in              |
+| C-c C-x C-o     | clock out             |
+| C-c C-x C-d     | show times            |
+| C-c C-x C-q     | Cancel clock          |
+| C-c C-x C-x     | Restart clock         |
+| C-u C-c C-x C-x | Restart with menu     |
+| C-c C-x C-j     | jump to clocked tasks |
+|-----------------+-----------------------|
 
 ** Capture
 
