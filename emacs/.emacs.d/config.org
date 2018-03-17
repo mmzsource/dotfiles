@@ -462,13 +462,26 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
     "~/Dropbox/org/leisure.org"))
 #+END_SRC
 
-** Drawers
+** Drawers, logging and clocking
 
 Let's not clutter up our tasks:
 
 #+BEGIN_SRC emacs-lisp
 (setq org-log-into-drawer "LOGBOOK")
 (setq org-clock-into-drawer "CLOCK")
+#+END_SRC
+
+I don't want to resolve clocks, but simply clock in and clock out when I run the
+commands:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-clock-idle-time             nil)
+(setq org-clock-continuously          nil)
+(setq org-clock-persist               nil)
+(setq org-clock-in-resume             nil)
+(setq org-clock-auto-clock-resolution nil)
+
+(org-clock-persistence-insinuate)
 #+END_SRC
 
 Logbook logging:
