@@ -467,7 +467,7 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
 Let's not clutter up our tasks:
 
 #+BEGIN_SRC emacs-lisp
-(setq org-log-into-drawer "LOGBOOK")
+(setq org-log-into-drawer   "LOGBOOK")
 (setq org-clock-into-drawer "CLOCK")
 #+END_SRC
 
