@@ -616,6 +616,19 @@ I found out that I want to be able to cycle quickly through my items
 todo-keyword definition, but leave it here in case I want to activate them
 again.
 
+Change parent item to DONE when all Children are DONE (see: [[https://orgmode.org/manual/Breaking-down-tasks.html#Breaking-down-tasks][Breaking down tasks]] )
+
+Add =[/]= or =[%]= in headline to get tracking of children tasks (n/m and
+percentage done respectively)
+
+#+BEGIN_SRC emacs-lisp
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+#+END_SRC
+
 Checkboxes are not included in the global TODO list and can be used to split a
 todo item into a number of simpler tasks:
 
