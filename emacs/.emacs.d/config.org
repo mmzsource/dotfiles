@@ -51,6 +51,23 @@ brew install aspell --with-lang-nl
 - aspell is needed for spell checking
 - english language is installed by default (no need to specify)
 
+* Upgrading Emacs
+
+Since I'm using homebrew I can simply run ~brew update~ and then ~brew upgrade
+emacs~. After upgrade, it's wise to debug the emacs setup, see [[Debugging][Debugging]]. If
+your setup is ruined beyond repair, you can link your environment back to the
+old brew installation (using brew). That way, you can wait for a more stable
+release while continuing to work in your old setup.
+
+My experience going from emacs 25.3 to 26.1 was that nothing was broken and
+nothing needed to be fixed. I could simple continue my work.
+
+Another option I have been thinking about is using a (major) emacs upgrade as an
+'excuse' to clean up my emacs config. Simply start with a clean emacs install
+and a clean config and only add those packages you really need or really miss.
+That'll keep the config clean over time and keeps the emacs config skills
+trained.
+
 * Override Defaults
 ** UI
 *** (No) Menu & (no) scroll bar
@@ -1273,6 +1290,29 @@ Some examples:
 #+END_SRC
 
 More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
+
+* Upgrading Packages
+
+Packages are stored in ~.dotfiles/emacs/.emacs.d/elpa/~ with their version as
+part of the folder name. Packages aren't upgraded automatically (by choice;
+there are packages that auto update, but I want to decide when and how to
+upgrade). To upgrade:
+
+- Backup your ~.dotfiles/emacs/.emacs.d/elpa/~ folder so you always can go back
+  to a working situation
+- ~M-x list-packages~ to see the list of packages available
+- ~U~ to mark available upgrades. If there are packages that can be upgraded,
+  emacs proposes to delete the old version of that new package.
+- ~SPC~ to browse
+- ~RET~ on a package to inspect it
+- mark the packages you want to upgrade with ~i~ (install)
+- mark the packages you want to delete with ~d~ (delete)
+- when done, hit ~x~ to execute
+- if applicable emacs suggest to run a ~M-x package-autoremove~ to remove old
+  packages and unused dependencies.
+- Restart emacs
+- Check if the emacs install is still ok, by following the [[Debugging][Debugging]]
+  instructions.
 
 * Debugging
 
