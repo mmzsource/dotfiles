@@ -1327,6 +1327,17 @@ Require clj-kondo as soon as `clojure-mode` is loaded
   (require 'flycheck-clj-kondo))
 #+END_SRC
 
+** clj-refactor
+
+A package to refactor Clojure Code:
+https://github.com/clojure-emacs/clj-refactor.el/wiki
+
+#+BEGIN_SRC emacs-lisp
+(use-package clj-refactor
+  :ensure t
+  :init (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1))))
+#+END_SRC
+
 * Upgrading Packages
 
 Packages are stored in ~.dotfiles/emacs/.emacs.d/elpa/~ with their version as
@@ -1366,7 +1377,6 @@ several things:
 
 - [[https://github.com/zenozeng/yafolding.el][yafolding]]? ... Problem with current indent based folding is that it doesn't
   fold comments (see folding header). So new solution should fix that.
-- [[https://github.com/clojure-emacs/clj-refactor.el/blob/master/README.md][clj-refactor]]
 - [[https://github.com/magnars/multiple-cursors.el/blob/master/README.md][multiple cursors]]
 - [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][Complete guide to email in emacs using mu and mu4e]]
 - http://www.skybert.net/emacs/bash-linting-in-emacs/
