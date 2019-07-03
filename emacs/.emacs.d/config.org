@@ -1291,7 +1291,7 @@ Some examples:
 
 More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
 
-** clj-kondo
+** flycheck & clj-kondo
 
 First make sure clj-kondo is installed. Instructions:
 https://github.com/borkdude/clj-kondo/blob/master/doc/install.md
@@ -1304,7 +1304,14 @@ https://github.com/borkdude/clj-kondo/blob/master/doc/
 
 Then hook it up to FlyCheck: https://github.com/borkdude/flycheck-clj-kondo
 
-This will only work if clj-kondo is on your path. ~which clj-kondo~
+This will only work if flycheck is installed ~M-x package-list-packages~ and
+clj-kondo is on your path. ~which clj-kondo~
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck-clj-kondo
