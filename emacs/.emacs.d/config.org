@@ -1291,6 +1291,35 @@ Some examples:
 
 More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
 
+** clj-kondo
+
+First make sure clj-kondo is installed. Instructions:
+https://github.com/borkdude/clj-kondo/blob/master/doc/install.md
+
+Basically: ~brew install borkdude/brew/clj-kondo~
+To upgrade: ~brew upgrade clj-kondo~
+
+Additional instructions (e.g. running clj-kondo as a leiningen command):
+https://github.com/borkdude/clj-kondo/blob/master/doc/
+
+Then hook it up to FlyCheck: https://github.com/borkdude/flycheck-clj-kondo
+
+This will only work if clj-kondo is on your path. ~which clj-kondo~
+
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck-clj-kondo
+  :ensure t)
+#+END_SRC
+
+Require clj-kondo as soon as `clojure-mode` is loaded
+
+#+BEGIN_SRC emacs-lisp
+(use-package clojure-mode
+  :ensure t
+  :config
+  (require 'flycheck-clj-kondo))
+#+END_SRC
+
 * Upgrading Packages
 
 Packages are stored in ~.dotfiles/emacs/.emacs.d/elpa/~ with their version as
