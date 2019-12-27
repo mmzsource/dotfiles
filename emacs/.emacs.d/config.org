@@ -18,38 +18,15 @@ with a bunch of personal extensions and flavors.
 
 On macOS, I use [[http://brew.sh/][homebrew]] to install emacs.
 
-Check "brew info emacs" to see if install options are still valid.
-
 #+begin_src sh
-brew install emacs --build-from-source --with-cocoa --with-gnutls --with-imagemagick@6
+brew cask install emacs
 #+end_src
-
-- ~--build-from-source~ to prevent dependency problem with jpeg library
-- ~-with-cocoa~ to enable the emacs.app
-- ~--with-gnutls~ to enable setting up secure communication
-- ~--with-imagemagick@6~ to work with images
-
-Create a symbolic link to emacs from the application directory:
-
-#+begin_src sh
-ln -s /usr/local/Cellar/emacs/25.3/Emacs.app ~/Applications/
-#+end_src
-
-Other option:
-
-1. $ open /usr/local/Cellar/emacs/[version]/
-2. Right-click Emacs.app and choose Make Alias.
-3. Drag or move or copy the alias to Applications.
-4. Rename the alias in your Applications folder to your desired name
-
-Now emacs will also be found by spotlight.
 
 #+BEGIN_SRC sh
-brew install aspell --with-lang-nl
+brew install aspell
 #+END_SRC
 
 - aspell is needed for spell checking
-- english language is installed by default (no need to specify)
 
 * Upgrading Emacs
 
@@ -59,8 +36,9 @@ your setup is ruined beyond repair, you can link your environment back to the
 old brew installation (using brew). That way, you can wait for a more stable
 release while continuing to work in your old setup.
 
-My experience going from emacs 25.3 to 26.1 was that nothing was broken and
-nothing needed to be fixed. I could simple continue my work.
+My experience going from emacs 25.3 to 26.1 and from 26.1 to 26.3 was that
+nothing was broken and nothing needed to be fixed. I could simple continue my
+work.
 
 Another option I have been thinking about is using a (major) emacs upgrade as an
 'excuse' to clean up my emacs config. Simply start with a clean emacs install
@@ -452,6 +430,18 @@ Nice arrow instead of the usual ellipsis (=...=) when stuff is folded.
 (setq org-ellipsis "⤵")
 #+END_SRC
 
+Use syntax highlighting in source blocks while editing.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+Make TAB act as if it were issued in a buffer of the language’s major mode.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+
 ** Keybindings
 
 #+begin_src emacs-lisp
@@ -474,9 +464,7 @@ Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
 
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files
-  '("~/Dropbox/org/pathis.org"
-    "~/Dropbox/org/department.org"
-    "~/Dropbox/org/leisure.org"))
+  '("~/org/agenda.org"))
 #+END_SRC
 
 ** Drawers, logging and clocking
@@ -525,7 +513,7 @@ Clocking (time tracking):
 ** Capture
 
 #+BEGIN_SRC emacs-lisp
-(setq org-default-notes-file "~/Dropbox/org/capture.org")
+(setq org-default-notes-file "~/org/capture.org")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -614,8 +602,6 @@ My todo workflow:
 
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
-;;'((sequence "TODO(t)" "BUSY(b!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")))
-;;'((sequence "TODO(t)" "BUSY(b!)" "WAIT(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
   '((sequence "TODO(t)" "BUSY(b)" "PENDING(p)" "|" "DONE(d)" "CANCELLED(c)")))
 #+END_SRC
 
@@ -625,13 +611,6 @@ further action. The special characters are:
 - =<char>= for fast access key definition (prompted for after =C-c C-t=)
 - =!= for adding a timestamp
 - =@= for prompting for a note
-
-=-edit-=
-
-I found out that I want to be able to cycle quickly through my items
-=(S-<arrow>)= and only add notes when needed. Therefore, I commented my earlier
-todo-keyword definition, but leave it here in case I want to activate them
-again.
 
 Change parent item to DONE when all Children are DONE (see: [[https://orgmode.org/manual/Breaking-down-tasks.html#Breaking-down-tasks][Breaking down tasks]] )
 
@@ -893,7 +872,7 @@ Main Usage:
 
 ** Markdown
 
-Use markdown mode, also for my foldingtext files
+Use markdown mode, also for my (old) foldingtext files
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
@@ -1168,25 +1147,6 @@ prefix) in a popup.
 screen, but will switch to the bottom if there's not enough space on the right.
 =which-key-mode= enables the which-key minor mode.
 
-** Avy
-
-Avy helps jumping through *visible* text.
-
-#+BEGIN_SRC emacs-lisp
-(define-prefix-command 'f9-map)
-
-(use-package avy
-  :ensure t
-  :bind   (("<f9>"   . f9-map)
-           ("<f9> c" . avy-goto-char)
-           ("<f9> 2" . avy-goto-char-2)
-           ("<f9> t" . avy-goto-char-timer)
-           ("<f9> l" . avy-goto-line)
-           ("<f9> w" . avy-goto-word-1)
-           ("<f9> o" . avy-org-goto-heading-timer))
-  :config (setq avy-background t))
-#+END_SRC
-
 ** Fireplace
 
 MUST HAVE emacs functionality:
@@ -1380,16 +1340,6 @@ several things:
 - [[https://github.com/magnars/multiple-cursors.el/blob/master/README.md][multiple cursors]]
 - [[http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/][Complete guide to email in emacs using mu and mu4e]]
 - http://www.skybert.net/emacs/bash-linting-in-emacs/
+- [[https://github.com/tarsius/moody][moody?]]
 
 * Cleanup?
-
-- Avy; I don't use it that often. For the visible area it might be just as easy
-  to =C-9 C-n= or =C-9 C-p= repeatedly and =C-arrow= to the word you're moving
-  to. Or when you're already on the correct line, =C-a= to move to the begin,
-  =C-e= to move to the end and =C-44 C-f= to move approximately halfway if
-  you're on the beginning of the line. Other option is to simply =C-s= or =C-r=;
-  The way it works seems to break my flow; first =<f12> t= then some typing and
-  then selecting a character randomly assigned by avy... Somehow that requires
-  too much conscious effort. The only reason I'm not deleting it immediately is
-  that I want to give it a real chance because when it works, it works like
-  magic.
