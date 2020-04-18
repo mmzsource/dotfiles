@@ -1329,6 +1329,90 @@ To start the socket repl: bb --socket-repl 1666
 To connect from emacs: M-x inf-clojure-connect localhost 1666
 Before starting evaluation: M-x inf-clojure-minor-mode
 
+** skewer-mode
+
+A minor mode to auto reload html, css & javascript.
+
+#+BEGIN_SRC emacs-lisp
+(use-package skewer-mode
+  :ensure t
+  :config
+    (add-hook 'js2-mode-hook 'skewer-mode)
+    (add-hook 'css-mode-hook 'skewer-css-mode)
+    (add-hook 'html-mode-hook 'skewer-html-mode))
+#+END_SRC
+
+Usage:
+
+- point the httpd server to where your html file is stored and start the httpd
+  server:
+  - First option: ~M-x httpd-serve-directory~ and then point to directory.
+  - Second option: ~M-x eval-expression (setq httpd-root "/path/to/files")~ and
+    then run ~M-x httpd-start~
+- The html file that resides in the served directory should include a script tag
+  pointing to the skewer.js file. That skewer.js file makes sure the connection
+  with emacs is managed. You don't have to copy-paste that skewer javascript
+  code; emacs hosts the script itself. Just make sure this script tag is in,
+  including your own script tag and a link to your stylesheet if applicable.
+
+#+BEGIN_SRC html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Example</title>
+    <script src="http://localhost:8080/skewer"></script>
+    <script src="myscript.js"></script>
+    <link href="mystyles.css" rel="stylesheet"/>
+  </head>
+  <body></body>
+</html>
+#+END_SRC
+
+- In the html buffer make sure skewer-html-mode is enabled
+- In the js buffer make sure skewer-mode is enabled
+- In the css buffer make sure skewer-css-mode is enabled
+- In both html and css buffers emmet-mode is also really useful (but not
+  mandatory for skewer of course)
+- Open the served html page on ~http://localhost:8080/your-html.html~
+- Test js connection by starting ~M-x skewer-repl~ and sending ~alert("Hi!"); to
+  the browser
+
+Javascript keybindings:
+
+| keybinding | description                                                                                                      |
+|------------+------------------------------------------------------------------------------------------------------------------|
+| C-x C-e    | Evaluate the form before the point & display in mini buffer. With prefix arg: insert result into current buffer. |
+| C-M-x      | Evaluate the top-level form around the point.                                                                    |
+| C-c C-k    | Load the current buffer.                                                                                         |
+| C-c C-z    | Select the REPL buffer.                                                                                          |
+|------------+------------------------------------------------------------------------------------------------------------------|
+
+CSS keybindings:
+
+| keybinding | description                              |
+|------------+------------------------------------------|
+| C-x C-e    | Load the declaration at the point        |
+| C-M-x      | Load the entire rule around the point    |
+| C-c C-k    | Load the current buffer as a style sheet |
+|------------+------------------------------------------|
+
+HTML keybindings:
+
+| keybinding | description                                    |
+|------------+------------------------------------------------|
+| C-M-x      | Load the HTML tag immediately around the point |
+|------------+------------------------------------------------|
+
+- M-x list-skewer-clients to see a list of all attached clients
+- Skewer uses long polling. After hours of inactivity you might need to call
+  ~skewer()~ in your browser console to reconnect (and retain browser state). If
+  browser state is not important, you can also refresh in these cases.
+
+Github repo can be found [[https://github.com/skeeto/skewer-mode][here]].
+This emacs stackexchange was very useful to me:
+https://emacs.stackexchange.com/questions/2376/how-to-use-skewer-mode
+
 * Upgrading Packages
 
 Packages are stored in ~.dotfiles/emacs/.emacs.d/elpa/~ with their version as
