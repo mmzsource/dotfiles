@@ -214,6 +214,9 @@ customize-create-theme= and saved that theme as 'default'.
 So after applying another theme, I can now always return to my default theme by
 =M-x load-theme default=.
 
+In case of emergency: =(mapcar #'disable-theme custom-enabled-themes)= and start
+all over.
+
 #+begin_src emacs-lisp
 (use-package solarized-theme
   :defer 10
