@@ -955,7 +955,7 @@ To see a list of enabled backends: =M-x customize-variable RET company-backends=
 
 ** Parentheses!
 
-If parentheses are used, enable paredit and highlight and color them all!
+   If parentheses are used, enable paredit and highlight and color them all!
 
 #+BEGIN_SRC emacs-lisp
 ;; Paredit
@@ -1153,6 +1153,7 @@ prefix) in a popup.
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
   :ensure t
+  :use-package-verbose t
   :config
     (which-key-setup-side-window-right-bottom)
     (which-key-mode))
