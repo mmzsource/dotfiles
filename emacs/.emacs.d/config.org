@@ -1,6 +1,26 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: M.Metz
 
+* Setup
+
+#+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start of Emacs Config")
+#+END_SRC
+
+This is needed, because (I think) flycheck started complaining that the 'cl
+library is deprecated. That complaining stopped by adding this dependency.
+
+#+BEGIN_SRC emacs-lisp
+(require 'cl-lib)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun disable-fylcheck-in-org-src-block ()
+  (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+
+(add-hook 'org-src-mode-hook 'disable-fylcheck-in-org-src-block)
+#+END_SRC
+
 * Introduction
 
 The emacs-lisp code in this file will run when emacs starts. A great use case
@@ -691,6 +711,7 @@ nicely explains some of the features.
 Smex adds history and suggestions to M-x
 
 #+begin_src emacs-lisp
+(message "%s" "MMz: Start loading smex")
 (use-package smex
   :ensure t
   :bind (("M-x"         . smex)
@@ -714,12 +735,12 @@ Main Usage:
 Links:
 
 - [[https://github.com/nonsequitur/smex][Smex on github (nonsequitur)]]
-
 ** Neotree
 
 Neotree shows your directories and files in a tree view.
 
 #+begin_src emacs-lisp
+(message "%s" "MMz: Start loading neotree")
 (use-package neotree
   :ensure t
   :bind (("<f8>" . neotree-toggle)))
@@ -744,12 +765,13 @@ Links:
 
 - [[https://github.com/jaypei/emacs-neotree][Neotree on Github (jaypei)]]
 - [[https://www.emacswiki.org/emacs/NeoTree][Neotree on emacswiki]]
-
 ** Engine-Mode
 
 Engine-mode allows me to do internet searches on configured search engines.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading engine-mode")
+
 (use-package engine-mode
   :ensure t)
 
@@ -831,13 +853,14 @@ Links:
 
 - [[https://github.com/hrs/engine-mode][engine-mode on github (hrs)]]
 - [[https://www.youtube.com/watch?v%3DMBhJBMYfWUo][hrs on youtube with short video on engine-mode]]
-
 ** Magit
 
 Magit is a brilliant interface to git. It provides several 'popups' (like
 commit, push, log, diff) which guide you through the (git) options.
 
 #+begin_src emacs-lisp
+(message "%s" "MMz: Start loading magit")
+
 (use-package magit
   :ensure t
   :bind (("C-c g" . magit-status)))
@@ -862,13 +885,14 @@ Main Usage:
 | P          | push popup                          |
 | u          | push to upstream                    |
 |------------+-------------------------------------|
-
 ** Rest-Client
 
 I'm using Restclient to test REST calls from text files.
 Additional info on [[https://github.com/pashky/restclient.el][github]] (including examples)
 
 #+begin_src emacs-lisp
+(message "%s" "MMz: Start loading rest client")
+
 (use-package restclient
   :ensure t)
 #+end_src
@@ -884,12 +908,13 @@ Main Usage:
 | C-c C-.    | mark the query under the cursor                  |
 | C-c C-u    | copy query under the cursor as curl cmd          |
 |------------+--------------------------------------------------|
-
 ** Markdown
 
 Use markdown mode, also for my (old) foldingtext files
 
 #+begin_src emacs-lisp
+(message "%s" "MMz: Start loading markdown mode")
+
 (use-package markdown-mode
   :ensure   t
   :commands (markdown-mode gfm-mode)
@@ -899,7 +924,6 @@ Use markdown mode, also for my (old) foldingtext files
              ("\\.ft\\'"       . markdown-mode))
   :init     (setq markdown-command "multimarkdown"))
 #+end_src
-
 ** Winner mode
 
 winner-mode lets you use =C-c <left>= and =C-c <right>= to switch between window
@@ -908,11 +932,12 @@ want to look at briefly before returning to whatever you were working on. When
 you’re done, press =C-c <left>=. [[https://www.youtube.com/watch?v%3DT_voB16QxW0][See winner-mode in action.]]
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading winner mode")
+
 (use-package winner
   :ensure t
   :config (winner-mode 1))
 #+END_SRC
-
 ** Undo-tree
 
 People often struggle with the Emacs undo model, where there’s really no concept
@@ -921,6 +946,8 @@ of “redo” - you simply undo the undo. This package lets you use =C-x u=
 back to a certain point (or redo), and go down different branches.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading undo-tree")
+
 (use-package undo-tree
   :ensure t
   :config
@@ -928,7 +955,6 @@ back to a certain point (or redo), and go down different branches.
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t))
 #+END_SRC
-
 ** Company
 
 Company is a text completion framework for Emacs. The name stands for "complete
@@ -948,16 +974,19 @@ In addition:
 To see a list of enabled backends: =M-x customize-variable RET company-backends=
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading Company")
+
 (use-package company
   :ensure t
   :config (global-company-mode))
 #+END_SRC
-
 ** Parentheses!
 
    If parentheses are used, enable paredit and highlight and color them all!
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading everything related to parentheses")
+
 ;; Paredit
 (use-package paredit
   :ensure t
@@ -1019,10 +1048,11 @@ of the arrow.
 
 Additionally, I had to change the keybindings of my magnet app because they made
 heavy use of =C-M= combinations and clashed with the paredit bindings.
-
 ** Yasnippet
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading yasnippet")
+
 (use-package yasnippet
   :ensure t
   :config
@@ -1045,13 +1075,14 @@ Main Usage:
 |------------------------+---------------------------------------------|
 
 Additional information on [[https://joaotavora.github.io/yasnippet/snippet-development.html][writing snippets]].
-
 ** Cider
 
 CIDER is the *C*lojure(Script) *I*nteractive *D*evelopment *E*nvironment that
 *R*ocks! [[http://cider.readthedocs.io/en/latest/running_tests/][Read The Docs.]]
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading cider!")
+
 (use-package cider
   :ensure t
   :pin melpa-stable
@@ -1144,16 +1175,16 @@ Flows:
 
 Also supercool: =cider-enlighten= to show all intermediate values of a called
 function in the source buffer.
-
 ** Which-Key
 
 Displays the key bindings following your currently entered incomplete command (a
 prefix) in a popup.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading which-key")
+
 (use-package which-key
   :ensure t
-  :use-package-verbose t
   :config
     (which-key-setup-side-window-right-bottom)
     (which-key-mode))
@@ -1162,37 +1193,40 @@ prefix) in a popup.
 =side-window-right-bottom= tries to show key options on the right side of the
 screen, but will switch to the bottom if there's not enough space on the right.
 =which-key-mode= enables the which-key minor mode.
-
 ** Fireplace
 
 MUST HAVE emacs functionality:
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading fireplace")
+
 (use-package fireplace
   :ensure t)
 #+END_SRC
 
 - =M-x fireplace= to engage in deep thinking
 - =M-x fireplace-off= or =q= to put the fire out
-
 ** Expand Region
 
 Expands regions in a =dwim= way.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading expand-region")
+
 (use-package expand-region
   :ensure t
   :bind ("C-@" . er/expand-region))
 #+END_SRC
 
 Github repo can be found [[https://github.com/magnars/expand-region.el][here]].
-
 ** Web mode
 
 Web mode makes sure you can work with HTML, JavaScript and CSS in one and the
 same HTML file.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading web mode")
+
 (use-package web-mode
   :ensure t
   :mode "\\.html?\\'"
@@ -1205,12 +1239,13 @@ same HTML file.
     (setq web-mode-enable-css-colorization t)
     (setq web-mode-enable-auto-pairing t)))
 #+END_SRC
-
 ** Emmet mode
 
 Powerful way of creating HTML & CSS snippets.
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading emmet mode")
+
 (use-package emmet-mode
   :ensure t
   :commands emmet-mode
@@ -1266,7 +1301,6 @@ Some examples:
 #+END_SRC
 
 More to be found in the [[https://docs.emmet.io/cheatsheet-a5.pdf][huge cheatsheet (pdf)]].
-
 ** flycheck & clj-kondo
 
 First make sure clj-kondo is installed. Instructions:
@@ -1284,12 +1318,16 @@ This will only work if flycheck is installed ~M-x package-list-packages~ and
 clj-kondo is on your path. ~which clj-kondo~
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading flycheck")
+
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading flycheck-clj-kondo")
+
 (use-package flycheck-clj-kondo
   :ensure t)
 #+END_SRC
@@ -1297,106 +1335,41 @@ clj-kondo is on your path. ~which clj-kondo~
 Require clj-kondo as soon as `clojure-mode` is loaded
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading clojure mode")
+
 (use-package clojure-mode
   :ensure t
   :config
   (require 'flycheck-clj-kondo))
 #+END_SRC
-
 ** clj-refactor
 
 A package to refactor Clojure Code:
 https://github.com/clojure-emacs/clj-refactor.el/wiki
 
 #+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading clj-refactor")
+
 (use-package clj-refactor
   :ensure t
   :init (add-hook 'clojure-mode-hook (lambda () (clj-refactor-mode 1))))
 #+END_SRC
+** Deft
 
-** skewer-mode
-
-A minor mode to auto reload html, css & javascript.
+Deft is an Emacs mode for quickly browsing, filtering, and editing directories
+of plain text notes.
 
 #+BEGIN_SRC emacs-lisp
-(use-package skewer-mode
-  :ensure t
-  :config
-    (add-hook 'js2-mode-hook 'skewer-mode)
-    (add-hook 'css-mode-hook 'skewer-css-mode)
-    (add-hook 'html-mode-hook 'skewer-html-mode))
+(message "%s" "MMz: Start loading deft")
+
+(use-package deft
+  :ensure   t
+  :bind     ("C-M-z" . deft)
+  :commands (deft)
+  :config   (setq deft-directory  "~/org/notes")
+            (setq deft-extensions '("md" "org"))
+            (setq deft-recursive  t))
 #+END_SRC
-
-Usage:
-
-- point the httpd server to where your html file is stored and start the httpd
-  server:
-  - First option: ~M-x httpd-serve-directory~ and then point to directory.
-  - Second option: ~M-x eval-expression (setq httpd-root "/path/to/files")~ and
-    then run ~M-x httpd-start~
-- The html file that resides in the served directory should include a script tag
-  pointing to the skewer.js file. That skewer.js file makes sure the connection
-  with emacs is managed. You don't have to copy-paste that skewer javascript
-  code; emacs hosts the script itself. Just make sure this script tag is in,
-  including your own script tag and a link to your stylesheet if applicable.
-
-#+BEGIN_SRC html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <title>Example</title>
-    <script src="http://localhost:8080/skewer"></script>
-    <script src="myscript.js"></script>
-    <link href="mystyles.css" rel="stylesheet"/>
-  </head>
-  <body></body>
-</html>
-#+END_SRC
-
-- In the html buffer make sure skewer-html-mode is enabled
-- In the js buffer make sure skewer-mode is enabled
-- In the css buffer make sure skewer-css-mode is enabled
-- In both html and css buffers emmet-mode is also really useful (but not
-  mandatory for skewer of course)
-- Open the served html page on ~http://localhost:8080/your-html.html~
-- Test js connection by starting ~M-x skewer-repl~ and sending ~alert("Hi!"); to
-  the browser
-
-Javascript keybindings:
-
-| keybinding | description                                                                                                      |
-|------------+------------------------------------------------------------------------------------------------------------------|
-| C-x C-e    | Evaluate the form before the point & display in mini buffer. With prefix arg: insert result into current buffer. |
-| C-M-x      | Evaluate the top-level form around the point.                                                                    |
-| C-c C-k    | Load the current buffer.                                                                                         |
-| C-c C-z    | Select the REPL buffer.                                                                                          |
-|------------+------------------------------------------------------------------------------------------------------------------|
-
-CSS keybindings:
-
-| keybinding | description                              |
-|------------+------------------------------------------|
-| C-x C-e    | Load the declaration at the point        |
-| C-M-x      | Load the entire rule around the point    |
-| C-c C-k    | Load the current buffer as a style sheet |
-|------------+------------------------------------------|
-
-HTML keybindings:
-
-| keybinding | description                                    |
-|------------+------------------------------------------------|
-| C-M-x      | Load the HTML tag immediately around the point |
-|------------+------------------------------------------------|
-
-- M-x list-skewer-clients to see a list of all attached clients
-- Skewer uses long polling. After hours of inactivity you might need to call
-  ~skewer()~ in your browser console to reconnect (and retain browser state). If
-  browser state is not important, you can also refresh in these cases.
-
-Github repo can be found [[https://github.com/skeeto/skewer-mode][here]].
-This emacs stackexchange was very useful to me:
-https://emacs.stackexchange.com/questions/2376/how-to-use-skewer-mode
 
 * Upgrading Packages
 
@@ -1433,6 +1406,16 @@ several things:
   the package loading.
 - Try ~package-refresh-contents~ or check if the troublesome package is in
   ~package-list-packages~
+
+- When adding a new 'use-package' emacs-lisp code block in config.org, you can
+  check the syntax, by moving point behind the last bracket and then running
+  ~M-x pp-macroexpand-last-sexp~ .
+
+- It's possible to open ~/.emacs.d/config.el and ~M-x flycheck-compile~ to see
+  all errors and warnings.
+
+- Try ~M-x eval-buffer~ when in the buffer of ~/.emacs.d/init.el
+
 * Try?
 
 - [[https://github.com/zenozeng/yafolding.el][yafolding]]? ... Problem with current indent based folding is that it doesn't
@@ -1443,3 +1426,10 @@ several things:
 - [[https://github.com/tarsius/moody][moody?]]
 
 * Cleanup?
+* End
+
+#+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: End of Emacs Config")
+(provide 'config)
+;;; config.el ends here
+#+END_SRC
