@@ -480,24 +480,6 @@ Make TAB act as if it were issued in a buffer of the language’s major mode.
 (setq org-src-tab-acts-natively t)
 #+END_SRC
 
-** Keybindings
-
-#+begin_src emacs-lisp
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cb" 'org-iswitchb)
-#+end_src
-
-Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
-
 ** Agenda files
 
 #+BEGIN_SRC emacs-lisp
@@ -703,6 +685,122 @@ mark up.
 #+END_SRC
 
 More info [[https://emacs.stackexchange.com/questions/13820/inline-verbatim-and-code-with-quotes-in-org-mode][in this stackoverflow answer]] .
+
+** Add an org-link to the current document in the kill-ring
+
+#+BEGIN_SRC emacs-lisp
+
+
+(defun mmz/org-keywords ()
+  "return a cons list of (keyword . value) from
+   'in-buffer settings' like #+keyword: value"
+  (org-element-map (org-element-parse-buffer 'element) 'keyword
+                   (lambda (keyword) (cons (org-element-property :key keyword)
+                                      (org-element-property :value keyword)))))
+
+
+(defun mmz/org-title-value ()
+  "get the value of the 'in-buffer setting'
+   with the keyword 'TITLE'"
+  (cdr (assoc "TITLE" (mmz/org-keywords))))
+
+
+(defun mmz/note-link ()
+  "returns a string representing an org-mode file link to the current file.
+   will add optional #+TITLE: value as description or simply filename if TITLE does not exist."
+  (let ((file-name   (buffer-name))
+        (description (mmz/org-title-value))
+        (link-string "[[file:%s][%s]]"))
+    (if description
+      (format link-string file-name description)
+      (format link-string file-name file-name))))
+
+
+(defun mmz/kill-new-note-link ()
+  (interactive)
+  (kill-new (mmz/note-link))
+  (message "note-link copied"))
+
+
+#+END_SRC
+
+** Create new org mode note in current directory and open it
+
+#+BEGIN_SRC emacs-lisp
+
+
+(defun mmz/chomp (str)
+  "Remove leading and strailing space from str"
+  (replace-regexp-in-string "\\(^[[:space:]\n]*\\|[[:space:]\n]*$\\)" "" str))
+
+
+(defun mmz/replace-space-with-dash (str)
+  "Replace spaces with dashes in str"
+  (replace-regexp-in-string " " "-" str))
+
+
+(defun mmz/make-slug (str)
+  "Converts to slug without spaces and without uppercase characters"
+  (downcase
+    (mmz/replace-space-with-dash
+      (mmz/chomp str))))
+
+
+(defun mmz/new-org-file-named ()
+  "Asks for a TITLE of a to be created .org file.
+   Creates filename by concatenating a date-time string with the title
+   (after making the title more 'filename friendly').
+   Opens the new file in a buffer, switches to that buffer and writes
+   the title in the new buffer."
+   (interactive)
+   (let ((datetime-str (format-time-string "%Y%m%dT%H%M%S"))
+         (title        (read-string        "TITLE of org note: ")))
+      (let ((file (format "%s-%s.org" datetime-str (mmz/make-slug title))))
+        (if (file-exists-p file)
+            (message "Aborting, file already exists: %s" file)
+          (write-region (concat "#+TITLE: " title "\n\n") nil file nil)
+          (let ((buffer (find-file-noselect file)))
+            (with-current-buffer buffer
+              (switch-to-buffer buffer))
+            (with-current-buffer (get-file-buffer file)
+              (goto-char (point-max))))))))
+
+
+#+END_SRC
+
+** Keybindings
+
+#+begin_src emacs-lisp
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+#+end_src
+
+Don't override the windmove keybindings (=S-<left> <right> <up> & <down>=).
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+#+END_SRC
+
+A lot of my note-taking happens in org-mode and deft mode.
+
+| Keybinding  | Meaning                                                       | Mnemetic |
+|-------------+---------------------------------------------------------------+----------|
+| C-M-z       | Open deft (see deft package for keybindings)                  | -        |
+| C-c C-M-c   | Create and copy link to current org document                  | 'c'opy   |
+| C-c C-M-n   | Create and open new org file with TITLE                       | 'n'ew    |
+| C-c C-l     | (default org-mode) Create link interactively                  | 'l'ink   |
+| C-u C-c C-l | (default org-mode) Create link to (select from file selector) | 'l'ink   |
+|-------------+---------------------------------------------------------------+----------|
+
+#+BEGIN_SRC emacs-lisp
+(define-key org-mode-map (kbd "C-c C-M-c") 'mmz/kill-new-note-link)
+(define-key global-map   (kbd "C-c C-M-n") 'mmz/new-org-file-named)
+#+END_SRC
 
 * Packages
 
@@ -1363,19 +1461,19 @@ Deft is an Emacs mode for quickly browsing, filtering, and editing directories
 of plain text notes.
 
 #+BEGIN_SRC emacs-lisp
-  (message "%s" "MMz: Start loading deft")
+(message "%s" "MMz: Start loading deft")
 
-  (use-package deft
-    :ensure   t
-    :bind     ("C-M-z" . deft)
-    :commands (deft)
-    :config   (setq deft-directory "~/org/notes")
-	      (setq deft-recursive t)
-              (setq deft-use-filter-string-for-filename nil)
-	      (setq deft-new-file-format "%Y%m%dT%H%M%S")
-	      (setq deft-extensions '("org" "md"))
-              (setq deft-default-extension "org")
-              (setq deft-auto-save-interval 0))
+(use-package deft
+  :ensure   t
+  :commands (deft)
+  :config   (setq deft-directory "~/org/notes")
+            (setq deft-recursive t)
+            (setq deft-use-filter-string-for-filename nil)
+            (setq deft-new-file-format "%Y%m%dT%H%M%S")
+            (setq deft-extensions '("org" "md"))
+            (setq deft-default-extension "org")
+            (setq deft-auto-save-interval 0)
+  :bind   ("C-M-z" . deft))
 #+END_SRC
 
 * Upgrading Packages
