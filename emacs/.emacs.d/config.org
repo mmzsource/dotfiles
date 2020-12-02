@@ -38,15 +38,16 @@ with a bunch of personal extensions and flavors.
 
 On macOS, I use [[http://brew.sh/][homebrew]] to install emacs.
 
-#+begin_src sh
-brew cask install emacs
-#+end_src
+- =brew cask install emacs=
+- =brew install aspell=
 
-#+BEGIN_SRC sh
-brew install aspell
-#+END_SRC
+(aspell is needed for spell checking)
 
-- aspell is needed for spell checking
+- =brew cask install mactex=
+
+(Mactex is needed for org -> pdf transformation (which passes through latex)) I
+also had installed the package 'exec-path-from-shell' to make sure orgmode could
+find the binary on the correct path.
 
 * Upgrading Emacs
 
@@ -1474,6 +1475,45 @@ of plain text notes.
             (setq deft-default-extension "org")
             (setq deft-auto-save-interval 0)
   :bind   ("C-M-z" . deft))
+#+END_SRC
+
+** exec-path-from-shell
+
+Emacs on mac by default uses the PATH variables that can be found on =cat
+/etc/paths=. These are different from the PATH variable you get when you execute
+=echo $PATH=. In emacs you can ask for the path value by =M-x getenv= and then
+typing =PATH=.
+
+Therefore, I've installed this package. Now, when updating my path by =brew
+installing= something and re-evaluating the path, my emacs path is identical to
+my bash path.
+
+(for shell it takes the =M-x getenv= =SHELL= path)
+
+#+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading exec-path-from-shell")
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config (exec-path-from-shell-initialize))
+#+END_SRC
+
+** plantuml
+
+This package requires a plantuml jar. I've downloaded it here:
+https://plantuml.com/download and put it in the configured directory.
+
+#+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading plantuml")
+
+(use-package plantuml-mode
+  :ensure t
+  :config
+    (setq plantuml-jar-path "/Library/plantuml/plantuml.jar")
+    (setq org-plantuml-jar-path "/Library/plantuml/plantuml.jar")
+    (setq plantuml-default-exec-mode 'jar)
+    (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+    (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 #+END_SRC
 
 * Upgrading Packages
