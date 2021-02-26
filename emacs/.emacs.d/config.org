@@ -15,10 +15,10 @@ library is deprecated. That complaining stopped by adding this dependency.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(defun disable-fylcheck-in-org-src-block ()
+(defun disable-flycheck-in-org-src-block ()
   (setq-local flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
-(add-hook 'org-src-mode-hook 'disable-fylcheck-in-org-src-block)
+(add-hook 'org-src-mode-hook 'disable-flycheck-in-org-src-block)
 #+END_SRC
 
 * Introduction
@@ -486,6 +486,24 @@ Make TAB act as if it were issued in a buffer of the language’s major mode.
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files
   '("~/org/agenda.org"))
+#+END_SRC
+
+Showing the week number in my calendar works properly when setting these
+properties and making sure the calendar week starts on Monday.
+
+#+BEGIN_SRC emacs-lisp
+(setq calendar-week-start-day 1)
+
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+          (car
+            (calendar-iso-from-absolute
+              (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'font-lock-warning-face))
+
+(setq calendar-intermonth-header
+      (propertize "Wk" 'font-lock-face 'font-lock-keyword-face))
 #+END_SRC
 
 ** Drawers, logging and clocking
@@ -1425,6 +1443,19 @@ clj-kondo is on your path. ~which clj-kondo~
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+
+#+END_SRC
+
+The default flycheck prefix key is ~C-c !~ which is also the keybinding to add
+an inactive date in org-mode. Therefore I decided to change the
+~flycheck-keymap-prefix~ variable to ~C-c f~. The way to do it is described in
+the documentation of the variable. The flycheck manual will still document the
+default keybindings.
+
+#+BEGIN_SRC emacs-lisp
+(define-key flycheck-mode-map flycheck-keymap-prefix nil)
+(setq flycheck-keymap-prefix (kbd "C-c f"))
+(define-key flycheck-mode-map flycheck-keymap-prefix flycheck-command-map)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
