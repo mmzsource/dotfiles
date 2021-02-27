@@ -57,9 +57,9 @@ your setup is ruined beyond repair, you can link your environment back to the
 old brew installation (using brew). That way, you can wait for a more stable
 release while continuing to work in your old setup.
 
-My experience going from emacs 25.3 to 26.1 and from 26.1 to 26.3 was that
-nothing was broken and nothing needed to be fixed. I could simple continue my
-work.
+My experience going from emacs 25.3 to 26.1, from 26.1 to 26.3 and from 26.3 to
+27.1 was that nothing was broken and nothing needed to be fixed. I could simple
+continue my work.
 
 Another option I have been thinking about is using a (major) emacs upgrade as an
 'excuse' to clean up my emacs config. Simply start with a clean emacs install
@@ -71,7 +71,7 @@ trained.
 ** UI
 *** (No) Menu & (no) scroll bar
 
-I have never felt the need to use the menu or the scroll bar in emacs.
+I don't feel the need to use the menu or the scroll bar in emacs.
 
 #+begin_src emacs-lisp
 (tool-bar-mode 0)
@@ -487,6 +487,8 @@ Make TAB act as if it were issued in a buffer of the language’s major mode.
 (setq org-agenda-files
   '("~/org/agenda.org"))
 #+END_SRC
+
+** Week numbers
 
 Showing the week number in my calendar works properly when setting these
 properties and making sure the calendar week starts on Monday.
