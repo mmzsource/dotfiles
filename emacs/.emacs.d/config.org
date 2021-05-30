@@ -38,16 +38,19 @@ with a bunch of personal extensions and flavors.
 
 On macOS, I use [[http://brew.sh/][homebrew]] to install emacs.
 
-- =brew cask install emacs=
+- =brew install --cask emacs=
 - =brew install aspell=
 
 (aspell is needed for spell checking)
 
-- =brew cask install mactex=
+- =brew install --cask mactex=
 
 (Mactex is needed for org -> pdf transformation (which passes through latex)) I
 also had installed the package 'exec-path-from-shell' to make sure orgmode could
 find the binary on the correct path.
+
+Finally, to get plantuml working in org mode files, you'll have to download the
+plantuml.jar file and put it in the right directory. (See PlantUML section).
 
 * Upgrading Emacs
 
