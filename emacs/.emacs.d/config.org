@@ -455,6 +455,15 @@ Furthermore, truncate long lines (needed when rows have lots of data in them).
   (add-hook hook (lambda () (flyspell-mode -1))))
 #+END_SRC
 
+** Indent-mode
+
+Turn off electric indent mode everywhere.
+https://stackoverflow.com/questions/27718310/emacs-version-24-4-new-obnoxious-loss-of-indentation-on-hitting-return
+
+#+BEGIN_SRC emacs-lisp
+(when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+#+END_SRC
+
 * Org-mode
 ** Display preferences
 
