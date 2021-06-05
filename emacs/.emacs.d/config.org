@@ -640,14 +640,27 @@ Allow =babel= to evaluate Emacs lisp:
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
   'org-babel-load-languages
-    '((emacs-lisp . t)))
+    '((emacs-lisp . t)
+      (shell . t)
+      (clojure . t)))
 #+END_SRC
+
+#+RESULTS:
 
 Don't ask before evaluating code blocks.
 
 #+BEGIN_SRC emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(message "%s" "MMz: Start loading ob-clojure")
+(use-package ob-clojure
+  :init
+  (setq org-babel-clojure-backend 'cider))
+#+END_SRC
+
+#+RESULTS:
 
 ** To-do items
 
