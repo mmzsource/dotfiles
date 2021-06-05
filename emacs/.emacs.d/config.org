@@ -653,6 +653,10 @@ Don't ask before evaluating code blocks.
 (setq org-confirm-babel-evaluate nil)
 #+END_SRC
 
+Executing a Clojure block in an org document will prompt for a CMD (a CIDER cmd)
+where the nrepl can connect to. I usually start a ~bb nrepl-server~ in the
+terminal and connect to that with ~cider-connect~.
+
 #+BEGIN_SRC emacs-lisp
 (message "%s" "MMz: Start loading ob-clojure")
 (use-package ob-clojure
