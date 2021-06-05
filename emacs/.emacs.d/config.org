@@ -635,7 +635,7 @@ new one (which shows the same information).
 (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-Allow =babel= to evaluate Emacs lisp:
+Allow =babel= to evaluate these languages:
 
 #+BEGIN_SRC emacs-lisp
 (org-babel-do-load-languages
