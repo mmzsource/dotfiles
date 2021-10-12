@@ -55,8 +55,8 @@ plantuml.jar file and put it in the right directory. (See PlantUML section).
 * Upgrading Emacs
 
 Since I'm using homebrew I can simply run ~brew update~ and then ~brew upgrade
-emacs~. After upgrade, it's wise to debug the emacs setup, see [[Debugging][Debugging]]. If
-your setup is ruined beyond repair, you can link your environment back to the
+--cask emacs~. After upgrade, it's wise to debug the emacs setup, see [[Debugging][Debugging]]. 
+If your setup is ruined beyond repair, you can link your environment back to the
 old brew installation (using brew). That way, you can wait for a more stable
 release while continuing to work in your old setup.
 
