@@ -60,9 +60,9 @@ If your setup is ruined beyond repair, you can link your environment back to the
 old brew installation (using brew). That way, you can wait for a more stable
 release while continuing to work in your old setup.
 
-My experience going from emacs 25.3 to 26.1, from 26.1 to 26.3 and from 26.3 to
-27.1 was that nothing was broken and nothing needed to be fixed. I could simple
-continue my work.
+My experience going from emacs 25.3 to 26.1, from 26.1 to 26.3 from 26.3 to 27.1 
+and from 27.1 to 27.2. was that nothing was broken and nothing needed to be fixed. 
+I could simple continue my work.
 
 Another option I have been thinking about is using a (major) emacs upgrade as an
 'excuse' to clean up my emacs config. Simply start with a clean emacs install
