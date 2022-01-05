@@ -1601,6 +1601,15 @@ upgrade). To upgrade:
 - Check if the emacs install is still ok, by following the [[Debugging][Debugging]]
   instructions.
 
+* Issues
+
+If emacs crashes, a ~.emacs.desktop.lock~ file will remain in the ~.emacs.d~ 
+directory. This will trigger a startup warning *every single time*:
+
+"desktop file appears to be in use by PID ..."
+
+... until the lock file is simply removed.
+
 * Debugging
 
 Sometimes adding a package doesn't work as expected. In those cases you can try
