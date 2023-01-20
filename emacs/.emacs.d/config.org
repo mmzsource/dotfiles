@@ -54,14 +54,16 @@ plantuml.jar file and put it in the right directory. (See PlantUML section).
 
 * Upgrading Emacs
 
-Since I'm using homebrew I can simply run ~brew update~ and then ~brew upgrade
---cask emacs~. After upgrade, it's wise to debug the emacs setup, see [[Debugging][Debugging]]. 
-If your setup is ruined beyond repair, you can link your environment back to the
-old brew installation (using brew). That way, you can wait for a more stable
-release while continuing to work in your old setup.
+Since I'm using homebrew I can simply run ~brew update~ and then ~brew reinstall
+emacs --cask --no-quarantine~. (See
+https://github.com/Homebrew/homebrew-cask/issues/87415) After upgrade, it's wise
+to debug the emacs setup, see [[Debugging][Debugging]]. If your setup is ruined beyond repair,
+you can link your environment back to the old brew installation (using brew).
+That way, you can wait for a more stable release while continuing to work in
+your old setup.
 
-My experience going from emacs 25.3 to 26.1, from 26.1 to 26.3 from 26.3 to 27.1 
-and from 27.1 to 27.2. was that nothing was broken and nothing needed to be fixed. 
+My experience going from emacs 25.3 to 26.1, from 26.1 to 26.3 from 26.3 to 27.1
+and from 27.1 to 27.2. was that nothing was broken and nothing needed to be fixed.
 I could simple continue my work.
 
 Another option I have been thinking about is using a (major) emacs upgrade as an
@@ -1075,20 +1077,18 @@ Use markdown mode, also for my (old) foldingtext files
              ("\\.ft\\'"       . markdown-mode))
   :init     (setq markdown-command "multimarkdown"))
 #+end_src
-** Winner mode
+** Gnuplot
 
-winner-mode lets you use =C-c <left>= and =C-c <right>= to switch between window
-configurations. This is handy when something has popped up a buffer that you
-want to look at briefly before returning to whatever you were working on. When
-you’re done, press =C-c <left>=. [[https://www.youtube.com/watch?v%3DT_voB16QxW0][See winner-mode in action.]]
+Gnuplot mode on top of gnuplot (brew install gnuplot) helps plotting org-tables
+among others. https://github.com/emacsorphanage/gnuplot
 
 #+BEGIN_SRC emacs-lisp
-(message "%s" "MMz: Start loading winner mode")
+(message "%s" "MMz: Start loading gnuplot")
 
-(use-package winner
-  :ensure t
-  :config (winner-mode 1))
+(use-package gnuplot
+  :ensure t)
 #+END_SRC
+
 ** Undo-tree
 
 People often struggle with the Emacs undo model, where there’s really no concept
@@ -1580,13 +1580,12 @@ https://plantuml.com/download and put it in the configured directory.
 
 * Upgrading Packages
 
-Packages are stored in ~.dotfiles/emacs/.emacs.d/elpa/~ with their version as
-part of the folder name. Packages aren't upgraded automatically (by choice;
-there are packages that auto update, but I want to decide when and how to
-upgrade). To upgrade:
+Packages are stored in ~.emacs.d/elpa/~ with their version as part of the folder
+name. Packages aren't upgraded automatically (by choice; there are packages that
+auto update, but I want to decide when and how to upgrade). To upgrade:
 
-- Backup your ~.dotfiles/emacs/.emacs.d/elpa/~ folder so you always can go back
-  to a working situation
+- Backup your ~/.emacs.d/elpa/~ folder so you always can go back to a working
+  situation
 - ~M-x list-packages~ to see the list of packages available
 - ~U~ to mark available upgrades. If there are packages that can be upgraded,
   emacs proposes to delete the old version of that new package.
