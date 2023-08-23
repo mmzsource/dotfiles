@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: emoji-heart
+# key: heart
+# --
+❤️$0
